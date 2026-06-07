@@ -24,22 +24,20 @@ module.exports = {
           },
         },
         {
-          /* Fase 2 — límite obligatorio (objetivos CLAUDE.md) */
+          /* Fase 2 — límite obligatorio (objetivos CLAUDE.md) + CWV */
           matchingUrlPattern: ".*",
           assertions: {
             "categories:performance": ["error", { minScore: 0.9 }],
             "categories:accessibility": ["error", { minScore: 0.95 }],
             "categories:best-practices": ["error", { minScore: 0.9 }],
             "categories:seo": ["error", { minScore: 0.95 }],
+            "first-contentful-paint": ["warn", { maxNumericValue: 2000 }],
+            "largest-contentful-paint": ["warn", { maxNumericValue: 2500 }],
+            "cumulative-layout-shift": ["error", { maxNumericValue: 0.1 }],
+            "total-blocking-time": ["warn", { maxNumericValue: 300 }],
           },
         },
       ],
-      assertions: {
-        "first-contentful-paint": ["warn", { maxNumericValue: 2000 }],
-        "largest-contentful-paint": ["warn", { maxNumericValue: 2500 }],
-        "cumulative-layout-shift": ["error", { maxNumericValue: 0.1 }],
-        "total-blocking-time": ["warn", { maxNumericValue: 300 }],
-      },
     },
     upload: {
       target: "temporary-public-storage",
