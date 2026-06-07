@@ -2,112 +2,129 @@
 
 # alexendros.me
 
-**Landing estática de marca personal — construida con las mismas decisiones que aplico en producción.**
+**Un espacio personal sin precio.**<br>
+Aquí no se vende, no se mide, no se captura.<br>
+Lo comercial vive en otro sitio. Aquí vive lo que pienso.
 
-[![Next.js 15](https://img.shields.io/badge/Next.js-15-000?logo=nextdotjs&logoColor=white)](https://nextjs.org)
-[![React 19](https://img.shields.io/badge/React-19-149eca?logo=react&logoColor=white)](https://react.dev)
-[![TypeScript strict](https://img.shields.io/badge/TypeScript-strict-3178c6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
-[![Tailwind v4](https://img.shields.io/badge/Tailwind-v4-38bdf8?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
-[![shadcn/ui](https://img.shields.io/badge/shadcn%2Fui-inline-000)](https://ui.shadcn.com)
-[![Deploy · Vercel](https://img.shields.io/badge/Deploy-Vercel-000?logo=vercel&logoColor=white)](https://vercel.com)
+<br>
 
-[alexendros.me](https://alexendros.me) · [contacto@alexendros.me](mailto:contacto@alexendros.me)
+[leer →](https://alexendros.me) · [código fuente ↓](#bajo-el-capó)
 
 </div>
 
 ---
 
-> Si llegas aquí desde mi firma, una charla o una tarjeta: esto es lo que construí para presentarme. No es una plantilla ni un `create-next-app` con tema oscuro — es un campo de pruebas real de las decisiones que tomo cuando lanzo producto.
+## Qué es esto
 
-## Qué es
+Un sitio web personal que existe para una sola cosa: **publicar ideas sin ánimo
+de lucro, sin tracking y sin intermediarios**. No hay banner de cookies porque no
+hay cookies que consentir. No hay analytics porque no necesito saber cuántos sois
+ni de dónde venís. No hay formulario de captación porque no tengo nada que
+venderte aquí.
 
-Una landing de marca personal **sin backend, sin tracking y sin compromisos**. Tres kilobytes de JavaScript bien puestos valen más que un framework mal usado: el sitio renderiza en el servidor, se exporta a HTML estático y se sirve desde CDN. Cero cold starts, cero fugas de datos, cero dependencias que no hayas visto pasar.
+El dominio `alexendros.me` es el espacio **libre de dinero** de Alejandro
+Domingo Agustí. Lo ideológico, lo filosófico, lo nacional, lo social. Si buscas
+contratación, producto o servicios, eso vive en
+[alexendros.pro](https://alexendros.pro) — otro dominio, otra lógica, otro
+registro.
 
-La uso también como banco de pruebas de identidad visual antes de llevar las decisiones a [alexendros.pro](https://alexendros.pro) (el hub de producto real).
+## Por qué es público
 
-## Lo que vas a ver
+Porque predicar transparencia y trabajar en privado es una contradicción. El
+código de este sitio es la prueba de lo que afirma:
 
-- **Renderizado estático puro** — `output: "export"` de Next.js 15 + App Router. El HTML se genera en build y se sirve tal cual. Sin SSR en runtime, sin edge functions, sin sorpresas en la factura.
-- **Tailwind CSS v4 CSS-first** — tokens `oklch` dark-first definidos en `app/globals.css`, sin `tailwind.config.js`. Paleta coherente en un único archivo.
-- **shadcn/ui inline** — componentes copiados a `components/ui/`, no una dependencia. Lo que lees es lo que corre.
-- **Headers de seguridad endurecidos** — CSP estricta (`base-uri 'self'`, `form-action 'self'`, `object-src 'none'`), HSTS con preload a 2 años, `X-Frame-Options: DENY`, Referrer-Policy, Permissions-Policy. Ver [vercel.json](./vercel.json).
-- **SEO serio** — JSON-LD `Person` + `WebSite`, sitemap y robots estáticos, Open Graph pre-renderizada (1200×630), metadata tipada.
-- **Legales reales** — aviso legal (LSSI-CE Art. 10), privacidad (RGPD Art. 13), cookies (Guía AEPD 2023). No lorem ipsum.
-- **Accesibilidad y rendimiento como requisito, no como checkbox** — CWV targets declarados: LCP < 2.0 s desktop / < 2.5 s mobile, INP < 200 ms, CLS < 0.1, Lighthouse > 90.
+- **Cero tracking** — verificable en el código: ni un solo script de analytics,
+  ni un píxel, ni un `localStorage`. Las únicas cookies son técnicas
+  (`__cf_bm` anti-bot de Cloudflare, `_vercel_no_cache` de caché en desarrollo).
+  Compruébalo tú mismo: `DevTools → Application → Cookies`.
 
-## Stack
+- **Cero monetización** — sin afiliados, sin ads, sin "contenido patrocinado".
+  Este dominio no genera ingresos y no pretende hacerlo.
 
-| Capa             | Elección                                                                    |
-| ---------------- | --------------------------------------------------------------------------- |
-| Framework        | Next.js 15 · App Router · React 19 · TypeScript `strict`                    |
-| Estilos          | Tailwind CSS v4 (CSS-first) · tokens `oklch` dark-first                     |
-| UI               | shadcn/ui inline · Radix primitives · `lucide-react`                        |
-| Tipografía       | Geist Sans + Geist Mono (self-hosted en `public/fonts/`)                    |
-| Calidad          | ESLint flat + Prettier 3 + depcheck + ts-prune · `noUncheckedIndexedAccess` |
-| Package manager  | pnpm 10 · Node ≥ 22                                                         |
-| Despliegue       | Vercel (región `mad1`) — static export servido desde CDN                    |
-| Pair programming | [Claude Code](https://claude.com/claude-code) — asistente en CLI + VS Code  |
+- **Cero dependencia de plataforma** — HTML estático servido desde CDN. Si
+  Vercel desaparece mañana, el sitio se sirve desde cualquier otro sitio en
+  minutos. Sin vendor lock-in, sin base de datos, sin funciones serverless.
 
-## Decisiones deliberadas (y lo que no hay)
+## El manifiesto técnico
 
-- **No hay API routes, ni middleware, ni base de datos.** Una landing no necesita backend; añadirlo sería deuda gratuita.
-- **No hay analytics.** Ni PostHog, ni GA, ni fingerprinting. Si algún día los añado, será con consentimiento previo y banner RGPD real.
-- **No hay formularios que envíen datos a ningún servidor.** Contacto vía `mailto:` y Calendly.
-- **No hay colores hardcodeados fuera de `globals.css`.** Un cambio de paleta es un archivo.
-- **No hay `any`.** TypeScript strict con `noUncheckedIndexedAccess`.
+La arquitectura del sitio **es** el argumento: se puede construir una presencia
+web funcional, rápida y accesible sin rastrear a nadie, sin pedir permisos que no
+necesitas y sin depender de infraestructura que no controlas.
 
-## Quick start
+| Decisión | Por qué |
+| --- | --- |
+| Static export (HTML puro) | No necesito servidor. Un CDN basta. Menos superficie de ataque, menos coste, más resiliencia. |
+| Sin analytics | Si no vendo nada aquí, no necesito medir conversiones. La vanidad de "saber cuánta gente me lee" no justifica rastrear a nadie. |
+| Sin cookies de terceros | El navegador de quien me lee no es mío. No le instalo nada que no sea estrictamente necesario para que la página funcione. |
+| Sin JavaScript innecesario | El contenido se lee sin JS. Los componentes interactivos son progresivos. |
+| Headers de seguridad endurecidos | CSP estricta, HSTS con preload, X-Frame-Options DENY. No porque lo exija nadie: porque es lo correcto. |
+| Dark-first | Porque paso más horas delante de una pantalla de las que son sanas, y no voy a castigar los ojos de quien me lea. |
+
+## Bajo el capó
+
+Para quien quiera ver **cómo** está hecho, no solo **qué** dice:
+
+```
+app/            Rutas (Next.js 15 App Router) — export estático
+  styles/       Tokens oklch, tipografía, componentes, motion, breakpoints
+  legal/        Aviso legal · Privacidad · Cookies (textos reales, no lorem ipsum)
+components/     Nav, footer, efectos visuales, shadcn/ui inline (6 componentes)
+lib/            Config del sitio, JSON-LD, utilidades
+content/        Ensayos e ideas en MDX (en construcción)
+docs/           ADRs, changelog, plan de reconversión
+public/         Fuentes locales, OG image, sitemap, robots
+```
+
+### Stack
+
+| Capa | Elección |
+| --- | --- |
+| Framework | Next.js 15 · App Router · React 19 · TypeScript strict |
+| Estilos | Tailwind CSS v4 (CSS-first) · tokens oklch dark-first |
+| Tipografía | Geist Sans + Mono (self-hosted) · Inter display |
+| Calidad | ESLint flat · Prettier 3 · depcheck · ts-prune |
+| Deploy | Vercel (mad1) — static export, CDN edge |
+
+### Arrancar en local
 
 ```bash
 pnpm install
-pnpm dev          # http://localhost:3000 (Turbopack)
-pnpm build        # genera out/ — HTML estático listo para CDN
+pnpm dev            # localhost:3000 (Turbopack)
+pnpm build          # genera out/ — HTML estático
+pnpm typecheck      # tsc --noEmit
+pnpm lint           # ESLint
 ```
 
-### Scripts
+## Sobre la página de cookies
 
-| Comando                  | Qué hace                          |
-| ------------------------ | --------------------------------- |
-| `pnpm dev`               | Dev server con Turbopack          |
-| `pnpm build`             | Build + static export a `out/`    |
-| `pnpm typecheck`         | `tsc --noEmit`                    |
-| `pnpm lint`              | ESLint flat config                |
-| `pnpm format` / `:check` | Prettier write / check            |
-| `pnpm deadcode:deps`     | depcheck · dependencias no usadas |
-| `pnpm deadcode:exports`  | ts-prune · exports no consumidos  |
+Este sitio tiene una página de cookies que **no existe para cumplir un trámite**,
+sino para explicar lo que la mayoría de sitios prefiere que no entiendas: qué son
+las cookies de verdad, para qué se usan tus datos y por qué el banner que te
+persigue por internet no te protege — te domestica.
 
-## Estructura
+La puede leer cualquiera. No hace falta ser técnico.
 
-```
-app/          Rutas (App Router) — page.tsx por ruta, static export
-components/   nav, footer, y ui/ (shadcn inline)
-lib/          site config, cn helper, structured-data (JSON-LD)
-public/       fonts, OG image, sitemap.xml, robots.txt
-docs/         CHANGELOG + histórico por fases
-```
+## Estado
 
-Detalle extendido en [CLAUDE.md](./CLAUDE.md).
+En reconversión activa. El `.me` está dejando atrás su fase de landing comercial
+para convertirse en lo que siempre debió ser: un espacio de contenido propio,
+libre de la lógica del dinero. Plan completo en
+[`docs/adr/0002-reconversion-me-antidinero.md`](docs/adr/0002-reconversion-me-antidinero.md).
 
-## Calidad y cumplimiento
+## Licencia
 
-Quality gate verde en el último pase (`2026-04-13`):
-
-- `pnpm lint` → 0 errores, 0 warnings
-- `pnpm typecheck` → 0 errores
-- `pnpm format:check` → conforme
-- `pnpm deadcode:deps` → sin issues
-- `pnpm build` → 11 páginas estáticas, sin warnings
-
-Checklist ISO 25010 firmada pre-deploy en [`docs/CHANGELOG.md`](./docs/CHANGELOG.md).
+Pendiente de decisión formal. El código fuente del sitio y su contenido textual
+se publicarán bajo una licencia abierta (previsiblemente Creative Commons).
+Mientras tanto: puedes leer, inspeccionar y aprender de este código. Si lo
+reutilizas, cita la fuente.
 
 ## Contacto
 
-- **Web**: [alexendros.me](https://alexendros.me)
-- **Producto**: [alexendros.pro](https://alexendros.pro)
-- **Email**: [contacto@alexendros.me](mailto:contacto@alexendros.me)
+[contacto@alexendros.me](mailto:contacto@alexendros.me)
 
 <div align="center">
+<br>
 
-Hecho en Valencia · dark-first · sin cookies
+Hecho en Valencia · sin cookies · sin precio · sin prisa
 
 </div>
