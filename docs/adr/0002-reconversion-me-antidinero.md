@@ -59,11 +59,12 @@ monetización en este dominio.
 
 Ejecución por fases (detalle en `docs/reconversion-me.md`):
 
-1. Estructura + saneado de documentación (esta PR).
-2. Purga de venta/afiliados + montaje de `/espensar` (MDX) y `/esposible` +
+1. ✅ **Hecha** — Estructura + saneado de documentación + ADR + README
+   reescrito + nombres esPensar/esPosible fijados (esta PR).
+2. ⏳ Purga de venta/afiliados + montaje de `/espensar` (MDX) y `/esposible` +
    reorientación de `lib/site.ts` y `lib/structured-data.ts`.
-3. Contenido (portada, `/sobre`, pieza de cookies, piezas de esPensar).
-4. Cierre: SEO (Article schema, sitemap dinámico), Lighthouse, deploy.
+3. ⏳ Contenido (portada, `/sobre`, pieza de cookies, piezas de esPensar).
+4. ⏳ Cierre: SEO (Article schema, sitemap dinámico), Lighthouse, deploy.
 
 ### Consecuencias positivas
 

@@ -29,43 +29,55 @@ nada de "convócame".
 
 ---
 
-## 1. Diagnóstico del estado actual (con evidencia)
+## 1. Diagnóstico — estado en el momento del análisis (2026-06-07)
 
-El `.me` es, hoy, una **landing comercial de `.pro` con otro nombre**:
+> Foto del punto de partida, **antes** de la reconversión. Se conserva como
+> registro del razonamiento. La marca de estado indica qué se resolvió ya
+> (✅) y qué queda por hacer (⏳).
 
-- **Hero de ventas** — `app/page.tsx:103-105`: *"Construyo, opero y cobro en mi
-  propio SaaS"*; CTA *"Convócame"* (`:108`) y *"disponibilidad para
-  consultoría"* (`:168`).
-- **Tabla comparativa de venta** — `app/page.tsx:191-209`: "Alexendros vs Dev
-  genérico", con fila "Producto SaaS propio en producción".
-- **Afiliados monetizados**:
+El `.me` **era**, en ese momento, una **landing comercial de `.pro` con otro
+nombre**:
+
+- ⏳ **Hero de ventas** — `app/page.tsx:103-105`: *"Construyo, opero y cobro en
+  mi propio SaaS"*; CTA *"Convócame"* (`:108`) y *"disponibilidad para
+  consultoría"* (`:168`). _Reescritura en fase de contenido._
+- ⏳ **Tabla comparativa de venta** — `app/page.tsx:191-209`: "Alexendros vs Dev
+  genérico", con fila "Producto SaaS propio en producción". _Pendiente eliminar._
+- ⏳ **Afiliados monetizados** (pendiente confirmación, ver §6):
   - `app/page.tsx:320-363` — sección "Aliados con programa de referidos"
     (Proton, Hostinger con código `G9PALEJANGEG`).
   - `components/referrals-fab.tsx` — botón flotante "Mis aliados" + *"Si
     contratas, recibo comisión"*.
   - `components/footer.tsx:80-90` — disclosure de afiliados.
   - `lib/site.ts:31-53` — array `referrals` (Claude AI referral, Proton).
-- **Copyright restrictivo** — `components/footer.tsx:77`: *"Todos los derechos
-  reservados"* (incoherente con "contenido libre").
-- **Identidad SEO comercial**:
+- ⏳ **Copyright restrictivo** — `components/footer.tsx:77`: *"Todos los derechos
+  reservados"* (incoherente con "contenido libre"). _Pendiente licencia abierta._
+- ⏳ **Identidad SEO comercial**:
   - `lib/site.ts:4-6` — title "Fullstack Developer", description con `.pro`,
     Supabase.
   - `lib/structured-data.ts:9-11` — `jobTitle: "Fullstack Developer"`,
-    `knowsAbout` incluye **Stripe** (pasarela de pago).
-- **Documentación falsa** (deuda):
-  - `CLAUDE.md §5` y `§2` describen páginas `/about`, `/contact`, `/projects`,
-    `/uses` que **no existen**.
-  - `TASKS.md:37` declara un smoke test de rutas inexistentes
-    (`/about`, `/herramientas`, `/uses`, `/contact`).
+    `knowsAbout` incluía **Stripe** (pasarela de pago).
+- ✅ **Documentación falsa** (deuda) — **corregida**:
+  - `CLAUDE.md §5/§8` describía páginas `/about`, `/contact`, `/projects`,
+    `/uses` que no existían → se reescribió el árbol al one-pager real.
+  - `TASKS.md` arrastraba un smoke test de rutas inexistentes → se añadió nota
+    de estado y marca de obsolescencia.
 
-Lo que **sí** está bien y se conserva:
+Ya resuelto en esta ronda, además de lo anterior:
+
+- ✅ Decisión de arquitectura registrada como ADR MADR 4.0.0
+  (`docs/adr/0002-…`), según `CONTRIBUTING.md`.
+- ✅ README reescrito a la identidad antidinero (sin afiliados, sin venta).
+- ✅ Nombres del autor fijados: **esPensar** y **esPosible** (rutas `/espensar`,
+  `/esposible`).
+
+Lo que **ya estaba bien** y se conserva:
 
 - Static export, headers de seguridad (`vercel.json`), Lighthouse ~99.
 - **CSS ya departamentado**: `app/styles/{tokens,base,typography,components,utilities,motion,breakpoints,print}.css`.
 - Tokens oklch dark-first, fuentes locales, JSON-LD, sitemap/robots.
 - **Cero tracking real** (verificado): únicas cookies `__cf_bm` (Cloudflare) y
-  `_vercel_no_cache` (Vercel). Esto es un **activo**: permite predicar con el
-  ejemplo.
+  `_vercel_no_cache` (Vercel). Es un **activo**: permite predicar con el ejemplo.
 
 ---
 
@@ -134,19 +146,21 @@ Objetivo: escribir en Markdown sin tocar React.
 
 ## 4. Inventario de purga (qué sale y de dónde)
 
-| Elemento | Ubicación | Acción |
-| --- | --- | --- |
-| Hero "cobro en mi SaaS" / "Convócame" / consultoría | `app/page.tsx:90-113,156-169` | Reescribir (fase contenido) |
-| Tabla "Alexendros vs Dev genérico" | `app/page.tsx:181-210` | Eliminar |
-| Sección "Aliados con programa de referidos" | `app/page.tsx:320-363` | **Eliminar** |
-| `ReferralsFab` (botón flotante afiliados) | `components/referrals-fab.tsx`, usado en `app/page.tsx:395` | **Eliminar** |
-| Disclosure de afiliados en footer | `components/footer.tsx:80-90` | **Eliminar** |
-| Array `referrals` | `lib/site.ts:31-53` | **Eliminar** |
-| `StackMarquee` (escaparate de stack) | `components/stack-marquee.tsx`, `app/page.tsx:282` | Revisar / eliminar |
-| "Todos los derechos reservados" | `components/footer.tsx:77` | Sustituir por licencia abierta (ver §6) |
-| Title/description comerciales | `lib/site.ts:4-6` | Reorientar |
-| `jobTitle` / `knowsAbout: Stripe` | `lib/structured-data.ts:9-11` | Reorientar a intereses reales |
-| Estructura falsa | `CLAUDE.md §2,§5` · `TASKS.md:37,44` | **Corregir ya** (saneado) |
+| Elemento | Ubicación | Acción | Estado |
+| --- | --- | --- | --- |
+| Hero "cobro en mi SaaS" / "Convócame" / consultoría | `app/page.tsx:90-113,156-169` | Reescribir (fase contenido) | ⏳ |
+| Tabla "Alexendros vs Dev genérico" | `app/page.tsx:181-210` | Eliminar | ⏳ |
+| Sección "Aliados con programa de referidos" | `app/page.tsx:320-363` | Eliminar | ⏳ |
+| `ReferralsFab` (botón flotante afiliados) | `components/referrals-fab.tsx`, usado en `app/page.tsx:395` | Eliminar | ⏳ |
+| Disclosure de afiliados en footer | `components/footer.tsx:80-90` | Eliminar | ⏳ |
+| Array `referrals` | `lib/site.ts:31-53` | Eliminar | ⏳ |
+| `StackMarquee` (escaparate de stack) | `components/stack-marquee.tsx`, `app/page.tsx:282` | Revisar / eliminar | ⏳ |
+| "Todos los derechos reservados" | `components/footer.tsx:77` | Sustituir por licencia abierta (ver §6) | ⏳ |
+| Title/description comerciales | `lib/site.ts:4-6` | Reorientar | ⏳ |
+| `jobTitle` / `knowsAbout: Stripe` | `lib/structured-data.ts:9-11` | Reorientar a intereses reales | ⏳ |
+| Estructura falsa en docs | `CLAUDE.md §5/§8` · `TASKS.md` | Corregida → árbol real + nota de estado | ✅ |
+| README de portfolio-developer | `README.md` | Reescrito a identidad antidinero | ✅ |
+| Decisión sin ADR | `docs/adr/` | Registrada como ADR 0002 (MADR) | ✅ |
 
 > "Eliminar" sobre elementos monetizados queda **pendiente de confirmación
 > explícita** del autor por afectar a ingresos reales (ver §6, decisiones
