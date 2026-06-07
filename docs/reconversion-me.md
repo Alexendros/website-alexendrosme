@@ -1,8 +1,12 @@
-# Reconversión de alexendros.me — plan estructural
+# Reconversión de alexendros.me — plan operativo
 
+> **Decisión canónica**: [`docs/adr/0002-reconversion-me-antidinero.md`](adr/0002-reconversion-me-antidinero.md)
+> (formato MADR 4.0.0, según `CONTRIBUTING.md` §14-15). Este documento es el
+> **plan operativo de detalle** que acompaña al ADR: inventario de purga línea a
+> línea, árbol de directorios, sistema de contenido y fases.
+>
 > Estado: **propuesta** (ronda de estructura). No incluye copy definitivo de cara
-> al usuario: eso se redacta en la fase de contenido. Aquí solo se define
-> arquitectura, departamentos, purga y posicionamiento.
+> al usuario: eso se redacta en la fase de contenido.
 >
 > Última revisión: 2026-06-07.
 
