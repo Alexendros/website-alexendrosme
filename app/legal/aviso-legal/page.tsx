@@ -73,9 +73,12 @@ export default function AvisoLegalPage() {
         </table>
 
         <p>
-          El contenido de este sitio es propiedad del titular. Queda prohibida su reproducción
-          total o parcial sin autorización expresa, salvo usos permitidos por la normativa de
-          propiedad intelectual.
+          El contenido de este sitio (textos, código y diseño) se publica bajo licencia{" "}
+          <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" rel="license">
+            Creative Commons BY-NC-SA 4.0
+          </a>
+          : cópialo, úsalo y compártelo con atribución y sin fines comerciales; las obras derivadas
+          deben mantener la misma licencia.
         </p>
         <p>
           El titular no se hace responsable de los contenidos enlazados en sitios de terceros, que
