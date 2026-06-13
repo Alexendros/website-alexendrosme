@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ContactFab } from "@/components/contact-fab";
+import { StackMarquee } from "@/components/stack-marquee";
 import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -81,7 +82,9 @@ export default function Home() {
         <div className="flex flex-wrap items-center gap-3">
           <p className="hero-eyebrow">Valencia · pensamiento, soberanía digital y libertades</p>
         </div>
-        <h1 className="hero-signature">Grandes soluciones de un ingenio no previsto.</h1>
+        <h1 className="hero-signature motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-3 motion-safe:duration-700">
+          Grandes soluciones de un ingenio no previsto.
+        </h1>
         <p className="prose-lead">
           Espacio personal y libre de dinero: humanismo, soberanía digital y crítica tecnológica. Lo
           que se vende vive en{" "}
@@ -220,6 +223,15 @@ export default function Home() {
             ))}
           </div>
         </div>
+      </section>
+
+      {/* ─────────────────────── STACK (marquee) ─────────────────────── */}
+      <section aria-labelledby="h2-stack-marquee" className="section-below-fold pt-4">
+        <h2 id="h2-stack-marquee" className="site-shell headline mb-2">
+          Mi caja de herramientas
+        </h2>
+        <p className="site-shell prose-lead mb-4">El stack con el que construyo, en movimiento.</p>
+        <StackMarquee />
       </section>
 
       <Separator className="site-shell" />
