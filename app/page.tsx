@@ -13,34 +13,14 @@ export const metadata: Metadata = {
 
 const misions = [
   {
-    title: "alexendros.pro",
+    title: "alexendros.dev",
     status: "En construcción",
     statusVariant: "default" as const,
     year: "2024–",
     stack: ["Next.js", "Supabase", "Prisma", "Stripe", "Turborepo"],
     description:
       "Mi proyecto comercial, a propósito fuera de este espacio: lo que se cobra y se vende vive allí, no en el .me.",
-    url: "https://alexendros.pro",
-  },
-  {
-    title: "alexendros.me",
-    status: "Rebuild activo",
-    statusVariant: "secondary" as const,
-    year: "2025–",
-    stack: ["Next.js", "Tailwind v4", "Vergina v0.2.2"],
-    description:
-      "Este sitio. Espacio personal y libre de dinero: pensamiento, soberanía digital y crítica tecnológica. Criterio en abierto.",
-    url: null,
-  },
-  {
-    title: "LexKit · GestKit",
-    status: "Roadmap",
-    statusVariant: "secondary" as const,
-    year: "2026",
-    stack: [],
-    description:
-      "Verticales (despachos jurídicos, gestorías) del roadmap comercial. Viven en alexendros.pro, no aquí.",
-    url: null,
+    url: "https://alexendros.dev",
   },
 ];
 
@@ -49,7 +29,7 @@ const experiencias = [
     category: "Formación de base",
     items: [
       "Años en hostelería, gestión y atención al cliente — aprendí a leer negocios antes que a escribir código.",
-      "Transición al software: autodidacta intensivo. Next.js, Supabase, Stripe, Docker, n8n.",
+      "Transición al software: autodidacta intensivo. Next.js, Supabase, Stripe, Docker.",
       "Primer proyecto freelance. Apertura del repositorio público. Decisión firme de trabajar en abierto.",
     ],
   },
@@ -61,7 +41,7 @@ const experiencias = [
       "Stripe (Subscriptions + Connect Express)",
       "Tailwind CSS v4 · shadcn/ui · Radix UI",
       "Turborepo · Vercel · GitHub Actions",
-      "n8n self-hosted · Sentry · Playwright · Vitest",
+      "Sentry · Playwright · Vitest",
     ],
   },
   {
@@ -125,45 +105,9 @@ export default function Home() {
           </h2>
 
           <div className="space-y-4">
-            <div className="bio-act space-y-2">
-              <p className="bio-act__index">Acto I</p>
-              <h3 className="title">Origen</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                Años fuera del software —hostelería, gestión, atención al cliente— que me enseñaron
-                a leer negocios antes que a escribir código. Traje de ahí dos cosas: criterio para
-                distinguir lo que importa del ruido y paciencia para los detalles que nadie ve.
-                Cuando por fin me senté a programar, ya tenía claro para qué.
-              </p>
-            </div>
-
-            <div className="bio-act space-y-2">
-              <p className="bio-act__index">Acto II</p>
-              <h3 className="title">Transición</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                Salto al software a tiempo completo. Formación autodidacta intensiva en stack
-                moderno: Next.js, Supabase, Stripe, Docker, n8n. Primeros proyectos freelance,
-                apertura del repositorio público y decisión firme de trabajar en abierto.
-              </p>
-            </div>
-
-            <div className="bio-act space-y-2">
-              <p className="bio-act__index">Acto III</p>
-              <h3 className="title">Actualidad</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                Operador de{" "}
-                <a
-                  href="https://alexendros.pro"
-                  className="underline underline-offset-4 decoration-primary/60 hover:decoration-primary"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  alexendros.pro
-                </a>
-                . Monorepo multi-app en construcción y build in public documentado. Lo comercial
-                vive en alexendros.pro; esto, alexendros.me, es un espacio personal y libre de
-                dinero.
-              </p>
-            </div>
+            <p className="text-muted-foreground leading-relaxed italic">
+              Autobiografía en construcción.
+            </p>
           </div>
         </div>
       </section>
@@ -278,16 +222,6 @@ export default function Home() {
                   className="underline underline-offset-4 decoration-primary/60 hover:decoration-primary text-sm"
                 >
                   GitHub · alexendros →
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://alexendros.pro"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline underline-offset-4 decoration-primary/60 hover:decoration-primary text-sm"
-                >
-                  Producto en producción · alexendros.pro →
                 </a>
               </li>
             </ul>
