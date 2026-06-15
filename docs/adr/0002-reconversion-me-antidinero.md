@@ -5,6 +5,11 @@
 - Decisores: Alejandro · Iniciativas Alexendros
 - Etiquetas: arquitectura, contenido, identidad
 
+> **Actualización 2026-06-15**: el dominio comercial de referencia pasó de
+> `alexendros.pro` a **`alexendros.dev`**. Las menciones a `alexendros.pro` en
+> este ADR (registro fechado el 2026-06-07) deben leerse como `alexendros.dev`.
+> El sitio en producción ya está unificado a `.dev`.
+
 > Texto en formato MADR 4.0.0 · https://adr.github.io/madr/
 >
 > Plan operativo de detalle (inventario de purga línea a línea, arquitectura de
@@ -14,10 +19,10 @@
 
 `alexendros.me` y `alexendros.pro` deben ser dos cosas distintas, pero hoy no lo
 son. El `.me` es, de facto, una **landing comercial que duplica el discurso de
-`.pro`**: hero de venta (*"construyo, opero y cobro en mi propio SaaS"*, CTA
-*"Convócame"*, consultoría), tabla comparativa "Alexendros vs Dev genérico",
+`.pro`**: hero de venta (_"construyo, opero y cobro en mi propio SaaS"_, CTA
+_"Convócame"_, consultoría), tabla comparativa "Alexendros vs Dev genérico",
 **enlaces de afiliado monetizados** (Proton, Hostinger, referral de Claude) y
-copyright restrictivo (*"Todos los derechos reservados"*).
+copyright restrictivo (_"Todos los derechos reservados"_).
 
 El propósito declarado del dominio `.me` es el contrario: un espacio personal
 **libre de dinero** (antidinero), de carácter ideológico, filosófico, nacional y
