@@ -19,8 +19,8 @@ package_manager: pnpm@10+
 ## 2. CONTEXTO
 
 - **Sitio estatico puro** (`output: 'export'` en `next.config.ts`) — SIN backend, sin API routes, sin middleware, sin auth, sin base de datos.
-- **Proposito**: campo de pruebas de branding/UI. Valida la identidad visual antes de aplicarla a `alexendros.pro`.
-- **Redirige a**: `alexendros.pro` para productos, servicios y dashboards.
+- **Proposito**: campo de pruebas de branding/UI. Valida la identidad visual antes de aplicarla a `alexendros.dev`.
+- **Redirige a**: `alexendros.dev` para productos, servicios y dashboards.
 - **Fase 3 completa + UX polish** (PRs #21/#22/#23 en 2026-04-14). **En producción en `alexendros.me`** (apex y www vía Vercel).
 
 ## 3. STACK
@@ -77,7 +77,7 @@ package_manager: pnpm@10+
 
 - README y docs publicas: tono promocional pero honesto. Mostrar decisiones, no vender. Evitar jerga vacia.
 - Al redactar copy en componentes o paginas, optimizar el **test de 5 segundos**: quien es, que construye, para quien.
-- No mencionar clientes, proyectos privados ni nombres internos del ecosistema `alexendros.pro` en archivos versionados.
+- No mencionar clientes, proyectos privados ni nombres internos del ecosistema `alexendros.dev` en archivos versionados.
 
 ## 5. ESTRUCTURA
 
@@ -148,7 +148,7 @@ pnpm lint
 [x] Commits directos a main
 [x] Anadir formularios que envien datos a un servidor (usar mailto/Calendly)
 [x] Comitear `.env*`, `.claude/settings.local.json`, tokens o API keys — repo es publico
-[x] Referenciar proyectos/clientes privados o paths internos del ecosistema `alexendros.pro`
+[x] Referenciar proyectos/clientes privados o paths internos del ecosistema `alexendros.dev`
 ```
 
 ## 8. ESTADO
@@ -158,7 +158,7 @@ pnpm lint
 - **Reconversión en curso**: el `.me` deja de ser landing comercial y pasa a
   espacio personal **libre de dinero** (ideológico/filosófico/nacional/social).
   Plan estructural en `docs/reconversion-me.md`. Toda venta, afiliación y
-  vocabulario "pro" se purga; lo comercial vive en `alexendros.pro`.
+  vocabulario "pro" se purga; lo comercial vive en `alexendros.dev`.
 - **Pendientes vivos**: ver `TASKS.md`.
 
 ## 9. INTEGRACION CON EL RESTO DEL ECOSISTEMA ALEXENDROS

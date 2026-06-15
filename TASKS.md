@@ -44,7 +44,7 @@ Lista viva de pendientes del repositorio standalone `alexendros-me`.
 - [ ] Rotar `/projects` con los últimos casos reales (lexactu, afiladocs, argus).
 - [ ] Actualizar `sameAs` del JSON-LD Person si cambian handles sociales.
 - [ ] Analytics privacy-first (Plausible EU / Umami) con consentimiento explícito.
-- [ ] Link real al hub `alexendros.pro` cuando esté deployado.
+- [ ] Link real al hub `alexendros.dev` cuando esté deployado.
 - [ ] Preload de fuentes Geist (`<link rel="preload">`) para mejorar TTFB percibido.
 - [x] Microanimaciones en hero con `tw-animate-css` (2026-06-13): entrada `animate-in fade-in slide-in-from-bottom`, motion-safe.
 - [x] **StackMarquee integrado** (2026-06-13): banda "Mi caja de herramientas" entre Misiones y Experiencias (antes huérfano).

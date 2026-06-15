@@ -1,5 +1,10 @@
 # Reconversión de alexendros.me — plan operativo
 
+> **Actualización 2026-06-15**: el dominio comercial de referencia pasó de
+> `alexendros.pro` a **`alexendros.dev`**. Las menciones a `alexendros.pro` en el
+> cuerpo histórico de este documento (foto del análisis 2026-06-07) deben leerse
+> como `alexendros.dev`. El sitio en producción ya está unificado a `.dev`.
+
 > **Decisión canónica**: [`docs/adr/0002-reconversion-me-antidinero.md`](adr/0002-reconversion-me-antidinero.md)
 > (formato MADR 4.0.0, según `CONTRIBUTING.md` §14-15). Este documento es el
 > **plan operativo de detalle** que acompaña al ADR: inventario de purga línea a
@@ -16,12 +21,12 @@
 
 `alexendros.me` y `alexendros.pro` son dos cosas distintas y hoy no lo son:
 
-| | `alexendros.pro` | `alexendros.me` |
-| --- | --- | --- |
-| Función | venta, contratación, producto, SaaS | espacio personal **libre de dinero** |
-| Registro | comercial | ideológico · filosófico · nacional · social |
-| Llamada a la acción | "contrátame", "pruébalo" | leer, pensar, discrepar |
-| Monetización | sí (es su sentido) | **ninguna** — antidinero |
+|                     | `alexendros.pro`                    | `alexendros.me`                             |
+| ------------------- | ----------------------------------- | ------------------------------------------- |
+| Función             | venta, contratación, producto, SaaS | espacio personal **libre de dinero**        |
+| Registro            | comercial                           | ideológico · filosófico · nacional · social |
+| Llamada a la acción | "contrátame", "pruébalo"            | leer, pensar, discrepar                     |
+| Monetización        | sí (es su sentido)                  | **ninguna** — antidinero                    |
 
 **Antidinero** aquí no significa "no acepto dinero": significa que este dominio
 no existe para ganarlo. Nada de afiliados, nada de captación, nada de tracking,
@@ -38,20 +43,20 @@ nada de "convócame".
 El `.me` **era**, en ese momento, una **landing comercial de `.pro` con otro
 nombre**:
 
-- ⏳ **Hero de ventas** — `app/page.tsx:103-105`: *"Construyo, opero y cobro en
-  mi propio SaaS"*; CTA *"Convócame"* (`:108`) y *"disponibilidad para
-  consultoría"* (`:168`). _Reescritura en fase de contenido._
+- ⏳ **Hero de ventas** — `app/page.tsx:103-105`: _"Construyo, opero y cobro en
+  mi propio SaaS"_; CTA _"Convócame"_ (`:108`) y _"disponibilidad para
+  consultoría"_ (`:168`). _Reescritura en fase de contenido._
 - ⏳ **Tabla comparativa de venta** — `app/page.tsx:191-209`: "Alexendros vs Dev
   genérico", con fila "Producto SaaS propio en producción". _Pendiente eliminar._
 - ⏳ **Afiliados monetizados** (pendiente confirmación, ver §6):
   - `app/page.tsx:320-363` — sección "Aliados con programa de referidos"
     (Proton, Hostinger con código `G9PALEJANGEG`).
-  - `components/referrals-fab.tsx` — botón flotante "Mis aliados" + *"Si
-    contratas, recibo comisión"*.
+  - `components/referrals-fab.tsx` — botón flotante "Mis aliados" + _"Si
+    contratas, recibo comisión"_.
   - `components/footer.tsx:80-90` — disclosure de afiliados.
   - `lib/site.ts:31-53` — array `referrals` (Claude AI referral, Proton).
-- ⏳ **Copyright restrictivo** — `components/footer.tsx:77`: *"Todos los derechos
-  reservados"* (incoherente con "contenido libre"). _Pendiente licencia abierta._
+- ⏳ **Copyright restrictivo** — `components/footer.tsx:77`: _"Todos los derechos
+  reservados"_ (incoherente con "contenido libre"). _Pendiente licencia abierta._
 - ⏳ **Identidad SEO comercial**:
   - `lib/site.ts:4-6` — title "Fullstack Developer", description con `.pro`,
     Supabase.
@@ -146,21 +151,21 @@ Objetivo: escribir en Markdown sin tocar React.
 
 ## 4. Inventario de purga (qué sale y de dónde)
 
-| Elemento | Ubicación | Acción | Estado |
-| --- | --- | --- | --- |
-| Hero "cobro en mi SaaS" / "Convócame" / consultoría | `app/page.tsx:90-113,156-169` | Reescribir (fase contenido) | ⏳ |
-| Tabla "Alexendros vs Dev genérico" | `app/page.tsx:181-210` | Eliminar | ⏳ |
-| Sección "Aliados con programa de referidos" | `app/page.tsx:320-363` | Eliminar | ⏳ |
-| `ReferralsFab` (botón flotante afiliados) | `components/referrals-fab.tsx`, usado en `app/page.tsx:395` | Eliminar | ⏳ |
-| Disclosure de afiliados en footer | `components/footer.tsx:80-90` | Eliminar | ⏳ |
-| Array `referrals` | `lib/site.ts:31-53` | Eliminar | ⏳ |
-| `StackMarquee` (escaparate de stack) | `components/stack-marquee.tsx`, `app/page.tsx:282` | Revisar / eliminar | ⏳ |
-| "Todos los derechos reservados" | `components/footer.tsx:77` | Sustituir por licencia abierta (ver §6) | ⏳ |
-| Title/description comerciales | `lib/site.ts:4-6` | Reorientar | ⏳ |
-| `jobTitle` / `knowsAbout: Stripe` | `lib/structured-data.ts:9-11` | Reorientar a intereses reales | ⏳ |
-| Estructura falsa en docs | `CLAUDE.md §5/§8` · `TASKS.md` | Corregida → árbol real + nota de estado | ✅ |
-| README de portfolio-developer | `README.md` | Reescrito a identidad antidinero | ✅ |
-| Decisión sin ADR | `docs/adr/` | Registrada como ADR 0002 (MADR) | ✅ |
+| Elemento                                            | Ubicación                                                   | Acción                                  | Estado |
+| --------------------------------------------------- | ----------------------------------------------------------- | --------------------------------------- | ------ |
+| Hero "cobro en mi SaaS" / "Convócame" / consultoría | `app/page.tsx:90-113,156-169`                               | Reescribir (fase contenido)             | ⏳     |
+| Tabla "Alexendros vs Dev genérico"                  | `app/page.tsx:181-210`                                      | Eliminar                                | ⏳     |
+| Sección "Aliados con programa de referidos"         | `app/page.tsx:320-363`                                      | Eliminar                                | ⏳     |
+| `ReferralsFab` (botón flotante afiliados)           | `components/referrals-fab.tsx`, usado en `app/page.tsx:395` | Eliminar                                | ⏳     |
+| Disclosure de afiliados en footer                   | `components/footer.tsx:80-90`                               | Eliminar                                | ⏳     |
+| Array `referrals`                                   | `lib/site.ts:31-53`                                         | Eliminar                                | ⏳     |
+| `StackMarquee` (escaparate de stack)                | `components/stack-marquee.tsx`, `app/page.tsx:282`          | Revisar / eliminar                      | ⏳     |
+| "Todos los derechos reservados"                     | `components/footer.tsx:77`                                  | Sustituir por licencia abierta (ver §6) | ⏳     |
+| Title/description comerciales                       | `lib/site.ts:4-6`                                           | Reorientar                              | ⏳     |
+| `jobTitle` / `knowsAbout: Stripe`                   | `lib/structured-data.ts:9-11`                               | Reorientar a intereses reales           | ⏳     |
+| Estructura falsa en docs                            | `CLAUDE.md §5/§8` · `TASKS.md`                              | Corregida → árbol real + nota de estado | ✅     |
+| README de portfolio-developer                       | `README.md`                                                 | Reescrito a identidad antidinero        | ✅     |
+| Decisión sin ADR                                    | `docs/adr/`                                                 | Registrada como ADR 0002 (MADR)         | ✅     |
 
 > "Eliminar" sobre elementos monetizados queda **pendiente de confirmación
 > explícita** del autor por afectar a ingresos reales (ver §6, decisiones
@@ -176,7 +181,7 @@ denunciar el teatro de las cookies sin hipocresía.
 ### Estructura de dos capas (el código ya la soporta)
 
 1. **Capa manifiesto** (arriba, para el humano): qué son las cookies de verdad,
-   para qué se usan, qué se hace con los datos. Tono *sobrio con filo*: dato y
+   para qué se usan, qué se hace con los datos. Tono _sobrio con filo_: dato y
    argumento, el cabreo se intuye.
 2. **Capa formal** (abajo, blindaje AEPD): el texto legal seco actual, intacto.
 
@@ -191,7 +196,7 @@ Todo lo que se afirme debe ser contrastable. Material base:
   AEPD 2023 — ya citada en `app/legal/cookies/page.tsx`).
 - **Real-time bidding (RTB)**: subasta del perfil del usuario en milisegundos
   durante la carga. Documentado por la autoridad belga (APD/GBA) que declaró
-  ilegal el *TCF* de IAB Europe en 2022. → *verificar y citar fuente al redactar.*
+  ilegal el _TCF_ de IAB Europe en 2022. → _verificar y citar fuente al redactar._
 - **Fingerprinting**: identificación sin cookies (canvas, fuentes, user-agent).
 - **Qué hace ESTE sitio** (verificable en repo + cabeceras HTTP):
   únicamente `__cf_bm` y `_vercel_no_cache`, ambas técnicas. Sin analytics,
@@ -247,5 +252,5 @@ Todo lo que se afirme debe ser contrastable. Material base:
 2. **Purga**: eliminar afiliados/venta (tras confirmar §6), montar `/ideas`
    (MDX), reorientar `site.ts` y `structured-data.ts`.
 3. **Contenido**: redactar portada, `/sobre`, pieza de cookies y primeros
-   ensayos (tono *sobrio con filo*).
+   ensayos (tono _sobrio con filo_).
 4. **Cierre**: SEO (Article schema, sitemap dinámico), Lighthouse, deploy.

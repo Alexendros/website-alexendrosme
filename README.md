@@ -25,7 +25,7 @@ venderte aquí.
 El dominio `alexendros.me` es el espacio **libre de dinero** de Alejandro
 Domingo Agustí. Lo ideológico, lo filosófico, lo nacional, lo social. Si buscas
 contratación, producto o servicios, eso vive en
-[alexendros.pro](https://alexendros.pro) — otro dominio, otra lógica, otro
+[alexendros.dev](https://alexendros.dev) — otro dominio, otra lógica, otro
 registro.
 
 ## Por qué es público
@@ -51,14 +51,14 @@ La arquitectura del sitio **es** el argumento: se puede construir una presencia
 web funcional, rápida y accesible sin rastrear a nadie, sin pedir permisos que no
 necesitas y sin depender de infraestructura que no controlas.
 
-| Decisión | Por qué |
-| --- | --- |
-| Static export (HTML puro) | No necesito servidor. Un CDN basta. Menos superficie de ataque, menos coste, más resiliencia. |
-| Sin analytics | Si no vendo nada aquí, no necesito medir conversiones. La vanidad de "saber cuánta gente me lee" no justifica rastrear a nadie. |
-| Sin cookies de terceros | El navegador de quien me lee no es mío. No le instalo nada que no sea estrictamente necesario para que la página funcione. |
-| Sin JavaScript innecesario | El contenido se lee sin JS. Los componentes interactivos son progresivos. |
-| Headers de seguridad endurecidos | CSP estricta, HSTS con preload, X-Frame-Options DENY. No porque lo exija nadie: porque es lo correcto. |
-| Dark-first | Porque paso más horas delante de una pantalla de las que son sanas, y no voy a castigar los ojos de quien me lea. |
+| Decisión                         | Por qué                                                                                                                         |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| Static export (HTML puro)        | No necesito servidor. Un CDN basta. Menos superficie de ataque, menos coste, más resiliencia.                                   |
+| Sin analytics                    | Si no vendo nada aquí, no necesito medir conversiones. La vanidad de "saber cuánta gente me lee" no justifica rastrear a nadie. |
+| Sin cookies de terceros          | El navegador de quien me lee no es mío. No le instalo nada que no sea estrictamente necesario para que la página funcione.      |
+| Sin JavaScript innecesario       | El contenido se lee sin JS. Los componentes interactivos son progresivos.                                                       |
+| Headers de seguridad endurecidos | CSP estricta, HSTS con preload, X-Frame-Options DENY. No porque lo exija nadie: porque es lo correcto.                          |
+| Dark-first                       | Porque paso más horas delante de una pantalla de las que son sanas, y no voy a castigar los ojos de quien me lea.               |
 
 ## Bajo el capó
 
@@ -77,13 +77,13 @@ public/         Fuentes locales, OG image, sitemap, robots
 
 ### Stack
 
-| Capa | Elección |
-| --- | --- |
-| Framework | Next.js 15 · App Router · React 19 · TypeScript strict |
-| Estilos | Tailwind CSS v4 (CSS-first) · tokens oklch dark-first |
-| Tipografía | Geist Sans + Mono (self-hosted) · Inter display |
-| Calidad | ESLint flat · Prettier 3 · depcheck · ts-prune |
-| Deploy | Vercel (mad1) — static export, CDN edge |
+| Capa       | Elección                                               |
+| ---------- | ------------------------------------------------------ |
+| Framework  | Next.js 15 · App Router · React 19 · TypeScript strict |
+| Estilos    | Tailwind CSS v4 (CSS-first) · tokens oklch dark-first  |
+| Tipografía | Geist Sans + Mono (self-hosted) · Inter display        |
+| Calidad    | ESLint flat · Prettier 3 · depcheck · ts-prune         |
+| Deploy     | Vercel (mad1) — static export, CDN edge                |
 
 ### Arrancar en local
 
