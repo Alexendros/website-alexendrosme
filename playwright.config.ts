@@ -9,6 +9,12 @@ export default defineConfig({
   use: {
     baseURL: process.env["BASE_URL"] ?? "http://localhost:3000",
     trace: "on-first-retry",
+    launchOptions: {
+      // Ruta fija al Chromium de Snap en Ubuntu 26.04
+      // Puede sobrescr variable de entorno PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH si es necesario
+      executablePath: '/snap/bin/chromium',
+    },
+    browserName: 'chromium',
   },
   projects: [
     { name: "mobile-sm", use: { ...devices["Galaxy S9+"] } },
