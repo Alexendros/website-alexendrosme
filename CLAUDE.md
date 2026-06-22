@@ -1,171 +1,111 @@
-# CLAUDE.md — alexendros-me (standalone)
+# CLAUDE.md — mi-website-personal
 
-Landing profesional de marca personal en **alexendros.me**. Repositorio público con vocación promocional: quien llegue aquí debe ver el criterio detrás del código, no solo el código.
+<proyecto>
+Sitio web personal **alexendros.me** de Alejandro Domingo Agustí. Repo público
+(`github.com/Alexendros/mi-website-personal`), separado del monorepo el 2026-04-11.
 
----
+Propósito ACTUAL (tras reconversión 2026-06): espacio personal **libre de dinero**
+— ideológico/filosófico/nacional/social. Sin venta, sin afiliados, sin analytics,
+sin tracking, sin cookies de captación. La arquitectura (static export, cero JS
+innecesario) ES el argumento del manifiesto.
 
-## 1. PROYECTO
+Diferencia con **website-alexendrosdev** (sibling en `personal/`, dominio
+`alexendros.dev`): el `.dev` es el espacio COMERCIAL (productos, servicios,
+dashboards, Stripe/Supabase). El `.me` deliberadamente NO vende y redirige lo
+comercial al `.dev`. No mezclar copy ni lógica entre ambos.
 
-```yaml
-name: alexendros-me
-type: personal-brand landing (static export)
-owner: Alejandro Domingo Agusti
-domain: alexendros.me
-repo: standalone (separado de alexendros-monorepo el 2026-04-11)
-origin_commit: a180d73 (chore: post-audit fixes)
-package_manager: pnpm@10+
-```
+(Nota histórica: el `.me` nació como "campo de pruebas de branding/landing
+comercial"; ese rol quedó OBSOLETO con la reconversión antidinero.)
+</proyecto>
 
-## 2. CONTEXTO
+<stack>
+- **Framework**: Next.js 16 (App Router) · React 19 · TypeScript strict (`noUncheckedIndexedAccess`).
+  OJO: `README.md` y `ARCHITECTURE.md` aún dicen "Next.js 15" (stale); `package.json` manda → **next ^16.2.9**.
+- **UI**: Tailwind CSS v4 (CSS-first) · shadcn/ui inline en `components/ui/` (6: badge, button, card, popover, separator, sheet) · `radix-ui` · iconos `lucide-react` + `simple-icons`.
+- **Design tokens**: Vergina Imperial v0.2.2 · oklch dark-first · `app/styles/*.css` (`globals.css` = índice de imports).
+- **Fonts**: Geist Sans + Mono self-hosted (`public/fonts/`) · Inter (next/font/google) para hero.
+- **Build**: `output: "export"` → HTML estático en `out/`. SIN backend, API routes, middleware, auth ni DB.
+- **Deploy**: Vercel (region mad1, static export/CDN). DNS en Hostinger. Security headers en `vercel.json` (CSP estricta, HSTS preload, X-Frame-Options DENY).
+- **Calidad**: ESLint flat + Prettier 3 + depcheck + ts-prune. CI GitHub Actions (typecheck+lint+build). Dependabot.
+- **Tests**: Playwright (`tests/a11y.spec.ts`, `landing.spec.ts`, `responsive.spec.ts`) con `@axe-core/playwright` (WCAG 2.1 AA). Lighthouse CI (`lighthouserc.cjs`).
+- **Tooling**: pnpm@10.33.0 · Node >=24.
 
-- **Sitio estatico puro** (`output: 'export'` en `next.config.ts`) — SIN backend, sin API routes, sin middleware, sin auth, sin base de datos.
-- **Proposito**: campo de pruebas de branding/UI. Valida la identidad visual antes de aplicarla a `alexendros.dev`.
-- **Redirige a**: `alexendros.dev` para productos, servicios y dashboards.
-- **Fase 3 completa + UX polish** (PRs #21/#22/#23 en 2026-04-14). **En producción en `alexendros.me`** (apex y www vía Vercel).
-
-## 3. STACK
-
-| Capa      | Tecnologia                                                                                                                       |
-| --------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| Framework | Next.js 16 App Router · React 19 · TypeScript strict                                                                             |
-| UI        | Tailwind CSS v4 CSS-first · shadcn/ui (inline en `components/ui/`)                                                               |
-| Tokens    | Design system **Vergina Imperial v0.2.2** · oklch dark-first · modular en `app/styles/*.css` (`globals.css` = índice de imports) |
-| Fonts     | Geist Sans + Mono (locales en `public/fonts/`) · **Inter** (next/font/google) para hero `h1.display`                             |
-| Headers   | Security headers via `vercel.json` (CSP strict, HSTS preload, X-Frame-Options DENY)                                              |
-| Build     | `next build` con static export a `out/`                                                                                          |
-| Deploy    | Vercel (region mad1) — **en producción** (apex + www)                                                                            |
-| Calidad   | ESLint flat + Prettier 3 + depcheck + ts-prune · TS `noUncheckedIndexedAccess`                                                   |
-| Pair dev  | [Claude Code](https://claude.com/claude-code) — asistente CLI / VS Code del autor                                                |
-
-## 4. REGLAS ABSOLUTAS
-
-### Codigo
-
-- TypeScript `strict: true`. **Prohibido `any`.**
-- Server Components por defecto. `"use client"` solo para interactividad browser.
-- **NO** API routes, **NO** middleware, **NO** backend de ningun tipo.
-- Commits: nunca a `main` directo. Feature branch + PR.
-- Repo publico: **nunca** introducir secrets, tokens, `.env*` ni rutas a sistemas internos. El unico dato personal presente es el NIF en `/legal/aviso-legal` (exigido por LSSI-CE Art. 10) y el email publico `contacto@alexendros.me`.
-
-### Seguridad (riesgos aceptados)
-
-- CSP en `vercel.json` usa `'unsafe-inline'` para `script-src` y `style-src`. Motivo: Next.js requiere inline scripts para hydration y JSON-LD (`dangerouslySetInnerHTML` en `layout.tsx`), y Tailwind CSS v4 genera estilos inline. Riesgo mitigado por la ausencia de input de usuario y backend.
-
-### UI
-
-- Componentes shadcn viven en `components/ui/` (inline — antes `@repo/ui`).
-- Helper `cn()` en `lib/utils.ts`.
-- Iconos: `lucide-react` unicamente.
-- Dark-first por defecto (`className="dark"` en `<html>`).
-- Colores SOLO via CSS vars del design system **Vergina Imperial** (definidas en `app/styles/tokens.css`). No hardcodear oklch en componentes.
-
-### SEO & Rendimiento
-
-- JSON-LD Person + WebSite en `lib/structured-data.ts` consumido desde `app/layout.tsx`.
-- Sitemap estatico en `public/sitemap.xml`, robots en `public/robots.txt`.
-- OG image en `public/og/opengraph-image.png`.
-- **CWV targets (obligatorios)**: LCP < 2.0s desktop / < 2.5s mobile · INP < 200ms · CLS < 0.1 · Lighthouse > 90.
-- Test de 5 segundos: quien es, que construye, para quien — visible sin scroll.
-
-### Legal
-
-- RGPD EU 2016/679, LOPDGDD LO 3/2018, LSSI-CE Art. 10, AEPD Guia Cookies 2023.
-- Paginas legales reales en `app/legal/` (aviso-legal, privacidad, cookies).
-- **NO activar analytics** (PostHog, GA, etc.) sin consentimiento previo — ahora mismo la app no lleva tracking.
-
-### Tono y comunicacion (repo publico)
-
-- README y docs publicas: tono promocional pero honesto. Mostrar decisiones, no vender. Evitar jerga vacia.
-- Al redactar copy en componentes o paginas, optimizar el **test de 5 segundos**: quien es, que construye, para quien.
-- No mencionar clientes, proyectos privados ni nombres internos del ecosistema `alexendros.dev` en archivos versionados.
-
-## 5. ESTRUCTURA
-
-```
-alexendros-me/
-|-- app/
-|   |-- globals.css              (importa app/styles/*.css)
-|   |-- styles/                  (tokens, base, typography, components, utilities, motion, breakpoints, print)
-|   |-- layout.tsx               (metadata, fonts, JSON-LD, nav, footer)
-|   |-- page.tsx                 (ONE-PAGER: hero + biografia + misiones + stack + experiencias)
-|   |-- error.tsx                (error boundary raiz)
-|   |-- not-found.tsx            (404)
-|   |-- icon.svg / apple-icon.tsx (favicons)
-|   `-- legal/
-|       |-- layout.tsx
-|       |-- aviso-legal/page.tsx (LSSI-CE Art. 10)
-|       |-- privacidad/page.tsx  (RGPD Art. 13)
-|       `-- cookies/page.tsx     (AEPD 2023)
-|-- components/
-|   |-- nav.tsx                  (Sheet mobile + desktop links)
-|   |-- footer.tsx
-|   |-- atmosphere.tsx · particle-bg.tsx · stack-marquee.tsx (FX/visual)
-|   |-- contact-fab.tsx              (FAB flotante de contacto)
-|   `-- ui/                      (shadcn inline — 6: badge, button, card, popover, separator, sheet)
-|-- lib/
-|   |-- utils.ts                 (cn helper)
-|   |-- site.ts                  (siteConfig global)
-|   `-- structured-data.ts       (JSON-LD factories)
-|-- public/
-|   |-- fonts/                   (Geist VF + Mono VF woff2)
-|   |-- og/                      (opengraph-image.png)
-|   |-- robots.txt
-|   `-- sitemap.xml
-|-- docs/
-|   `-- history/
-|       `-- phase-03-alexendros-me/  (historial de Fase 3 heredado)
-|-- .gitignore
-|-- CLAUDE.md
-|-- README.md
-|-- components.json              (shadcn config — aliases locales)
-|-- eslint.config.mjs
-|-- next.config.ts               (output: 'export')
-|-- next-env.d.ts
-|-- package.json
-|-- postcss.config.mjs
-|-- tsconfig.json
-`-- vercel.json                  (security headers)
-```
-
-## 6. COMANDOS
-
+### Comandos reales (package.json)
 ```bash
-pnpm install
-pnpm dev          # next dev --turbopack en http://localhost:3000
-pnpm build        # genera out/ (static export)
-pnpm typecheck
-pnpm lint
+pnpm dev            # next dev --turbopack (localhost:3000)
+pnpm build          # next build → out/ (static export)
+pnpm typecheck      # tsc --noEmit
+pnpm lint           # eslint .
+pnpm format         # prettier --write
+pnpm format:check
+pnpm deadcode:deps  # depcheck
+pnpm deadcode:exports # ts-prune
+pnpm test:e2e       # playwright test
+pnpm test:e2e:ui    # playwright test --ui
+```
+</stack>
+
+<estado>
+- **Desarrollo ACTIVO**. 69 commits (2026-04-11 → último **2026-06-15**). Working tree limpio, `main` al día con origin.
+- **En producción** en `alexendros.me` (apex + www vía Vercel, preview por PR).
+- **Reconversión antidinero en curso** (desde 2026-06-07): purga comercial ejecutada (Fase 1+2 hechas: afiliados/venta/sello "pro" fuera, licencia CC BY-NC-SA 4.0, footer con sello €Ç anticomercial). Plan en `docs/reconversion-me.md` y `docs/adr/0002-reconversion-me-antidinero.md`.
+- **Funcional (inferido, sin ejecutar)**: SÍ. Evidencia: pnpm-lock.yaml presente, build static export configurado, CI verde histórico, Lighthouse 99/96/100/100 (TASKS.md 2026-04-13), Playwright a11y 12/12 (2026-06-13), sitio reportado live con HTTP/2 200. Madurez alta para su tamaño (one-pager).
+</estado>
+
+<arquitectura>
+One-pager + páginas legales. Entrypoints: `app/layout.tsx` (metadata, fonts, JSON-LD, nav, footer) y `app/page.tsx` (hero + biografía + misiones + StackMarquee + experiencias).
+
+```
+app/
+  globals.css            (importa app/styles/*.css)
+  styles/                (tokens, base, typography, components, utilities, motion, breakpoints, print)
+  layout.tsx             (raíz: metadata, fonts, JSON-LD, nav, footer)
+  page.tsx               (ONE-PAGER)
+  error.tsx · not-found.tsx · icon.svg · apple-icon.tsx
+  legal/                 (layout + aviso-legal[LSSI Art.10] · privacidad[RGPD] · cookies[AEPD])
+components/
+  nav.tsx · footer.tsx · atmosphere.tsx · particle-bg.tsx · stack-marquee.tsx · contact-fab.tsx
+  ui/                    (shadcn inline)
+lib/
+  utils.ts (cn) · site.ts (siteConfig) · contact.ts · structured-data.ts (JSON-LD)
+public/                  (fonts/ · og/ · robots.txt · sitemap.xml)
+docs/                    (adr/, CHANGELOG.md, reconversion-me.md, auditorías)
+tests/                   (Playwright)
 ```
 
-## 7. LO QUE NO DEBES HACER
+JSON-LD Person + WebSite en `lib/structured-data.ts` (consumido por layout). Sitemap/robots estáticos en `public/`.
+</arquitectura>
 
-```
-[x] Reintroducir dependencias de @repo/* — esta app es standalone
-[x] Anadir rutas API, middleware o cualquier backend
-[x] Activar analytics sin consentimiento del usuario
-[x] Hardcodear colores fuera de app/styles/tokens.css
-[x] Ignorar errores TypeScript con @ts-ignore o as any
-[x] Commits directos a main
-[x] Anadir formularios que envien datos a un servidor (usar mailto/Calendly)
-[x] Comitear `.env*`, `.claude/settings.local.json`, tokens o API keys — repo es publico
-[x] Referenciar proyectos/clientes privados o paths internos del ecosistema `alexendros.dev`
-```
+<pendiente>
+- **`/ideas` (MDX) + `content/ideas/`**: el "departamento de contenido" es el siguiente gran paso de la reconversión. NO existe aún: `content/` mencionado en README ("en construcción") y TASKS.md §8, pero **no hay directorio `content/` en el árbol** (verificado).
+- Biografía/autobiografía marcadas "En construcción" en `app/page.tsx` (líneas 17, 109).
+- Pieza divulgativa de cookies (capa manifiesto + capa formal) — pendiente (TASKS.md §8).
+- Menores: proteger `main` en GitHub; enviar sitemap a Search Console + IndexNow; preview OG; Calendly embed en contacto; analytics privacy-first con consentimiento (NO activar sin consentimiento).
+- OBSOLETO: rutas `/about`, `/projects`, `/uses`, `/contact`, `/herramientas` de TASKS §4-§5 NO existen (la app es one-pager); ignorar esos items.
+- Docs desincronizados: `README.md` y `ARCHITECTURE.md` dicen "Next.js 15" (real: 16) y `ARCHITECTURE.md` menciona Sentry/telemetría/`next/image` que no aplican al static export sin tracking.
+- `ROADMAP.md` es plantilla vacía (placeholders).
+</pendiente>
 
-## 8. ESTADO
+<notas>
+### Reglas absolutas
+- TypeScript `strict`. **Prohibido `any`**, `@ts-ignore`, `as any`.
+- Server Components por defecto; `"use client"` solo para interactividad browser.
+- **NO** API routes, middleware ni backend. **NO** formularios que envíen a servidor (usar mailto/Calendly).
+- **NO** reintroducir deps `@repo/*` — la app es standalone.
+- **NO** activar analytics/tracking sin consentimiento explícito (hoy: cero tracking, parte del manifiesto).
+- Colores SOLO vía CSS vars de `app/styles/tokens.css` (Vergina Imperial). No hardcodear oklch en componentes. Helper `cn()` en `lib/utils.ts`.
+- Commits: nunca a `main` directo → feature branch + PR.
+- **Repo público**: nunca secrets/tokens/`.env*`/`.claude/settings.local.json`/paths internos. Único dato personal: NIF en `/legal/aviso-legal` (LSSI Art.10) + email `contacto@alexendros.me`.
+- No referenciar clientes, proyectos privados ni nombres internos del ecosistema `.dev` en archivos versionados.
+- CSP en `vercel.json` usa `'unsafe-inline'` (script/style): riesgo aceptado (hydration Next + JSON-LD + Tailwind v4 inline; sin input de usuario ni backend).
 
-- **Fase 3 cerrada** (3/3 planes completados, ver `docs/CHANGELOG.md`).
-- **En producción** en `alexendros.me` (apex + www vía Vercel, preview por PR activo).
-- **Reconversión en curso**: el `.me` deja de ser landing comercial y pasa a
-  espacio personal **libre de dinero** (ideológico/filosófico/nacional/social).
-  Plan estructural en `docs/reconversion-me.md`. Toda venta, afiliación y
-  vocabulario "pro" se purga; lo comercial vive en `alexendros.dev`.
-- **Pendientes vivos**: ver `TASKS.md`.
+### CWV obligatorios
+LCP < 2.0s desktop / < 2.5s mobile · INP < 200ms · CLS < 0.1 · Lighthouse > 90.
+Test de 5 segundos: quién es, qué construye, para quién — sin scroll.
 
-## 9. INTEGRACION CON EL RESTO DEL ECOSISTEMA ALEXENDROS
+### Tono (repo público)
+Promocional pero honesto: mostrar decisiones, no vender. El `.me` no monetiza; lo comercial es del `.dev`.
 
-Esta app es independiente pero coordinada:
-
-- **`alexendros-pro`** (`~/Apps/alexendros-pro/`) — hub SaaS multi-kit. Esta landing redirige alli para productos y dashboards.
-- **`~/.claude/PROYECTOS.md`** — registro global con el estado de todas las apps. Actualizar cuando haya hitos.
-
-Ver tambien el index de proyectos en `~/.claude/PROYECTOS.md` y las alertas cruzadas en `~/.claude/projects/-var-home-soyalexendros/memory/cross-app-alerts.md`.
+### Ecosistema
+Registro global en `~/.claude/PROYECTOS.md` (actualizar en hitos). Sibling comercial: `personal/website-alexendrosdev` (`alexendros.dev`).
+</notas>
