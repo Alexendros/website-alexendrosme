@@ -8,16 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 export default [
-  eslint.configs.recommended,
-  ...tseslint.configs.recommended,
-  nextPlugin.configs.recommended,
   {
-    languageOptions: {
-      parserOptions: {
-        project: true,
-        tsconfigRootDir: __dirname,
-      },
-    },
     ignores: [
       '.claude/**',
       '.next/**',
@@ -28,6 +19,17 @@ export default [
       '*.config.ts',
       'lighthouserc.cjs',
     ],
+  },
+  eslint.configs.recommended,
+  ...tseslint.configs.recommended,
+  nextPlugin.configs.recommended,
+  {
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.json'],
+        tsconfigRootDir: __dirname,
+      },
+    },
     rules: {
       // Seguridad
       'no-console': ['warn', { allow: ['warn', 'error'] }],

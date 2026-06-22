@@ -89,12 +89,24 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Saltar al contenido
         </a>
         <script
+          id="person-json-ld"
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+          dangerouslySetInnerHTML={{ 
+            __html: JSON.stringify(personJsonLd) 
+            // SAFE: contenido estático, sin input de usuario.
+            // Generado en build-time desde constants TypeScript.
+            // Risk level: NONE.
+          }}
         />
         <script
+          id="website-json-ld"
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+          dangerouslySetInnerHTML={{ 
+            __html: JSON.stringify(websiteJsonLd) 
+            // SAFE: contenido estático, sin input de usuario.
+            // Generado en build-time desde constants TypeScript.
+            // Risk level: NONE.
+          }}
         />
         <Atmosphere />
         <ParticleBg />
