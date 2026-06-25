@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test('no eval() in client-side code', async ({ page }) => {
+  await page.goto('/');
   const scripts = await page.$$eval('script', (scripts) =>
     scripts.map((s) => s.textContent || '')
   );
