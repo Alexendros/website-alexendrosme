@@ -6,10 +6,9 @@ import dynamic from "next/dynamic";
 import { siteConfig } from "@/lib/site";
 import { useScrollSpy } from "@/lib/hooks/useScrollSpy";
 
-const MobileMenu = dynamic(
-  () => import("@/components/mobile-menu").then((m) => m.MobileMenu),
-  { ssr: false },
-);
+const MobileMenu = dynamic(() => import("@/components/mobile-menu").then((m) => m.MobileMenu), {
+  ssr: false,
+});
 
 function scrollToAnchor(href: string) {
   if (!href.startsWith("#")) return;

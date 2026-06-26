@@ -22,12 +22,7 @@ export function MobileMenu({ activeHash }: { activeHash: string }) {
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        <Button
-          variant="ghost"
-          size="icon-touch"
-          className="mobile-only"
-          aria-label="Abrir menú"
-        >
+        <Button variant="ghost" size="icon-touch" className="mobile-only" aria-label="Abrir menú">
           {open ? (
             <X className="icn-md" aria-hidden="true" />
           ) : (
