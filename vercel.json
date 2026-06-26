@@ -6,9 +6,26 @@
     { "source": "/contacto", "destination": "/", "permanent": true },
     { "source": "/bitacora", "destination": "/", "permanent": true },
     { "source": "/uses", "destination": "/#experiencias", "permanent": true },
-    { "source": "/empleo", "destination": "/", "permanent": false }
+    { "source": "/empleo", "destination": "/", "permanent": false },
+    { "source": "/about", "destination": "/#biografia", "permanent": true },
+    { "source": "/projects", "destination": "/#misiones", "permanent": true },
+    { "source": "/contact", "destination": "/", "permanent": true },
+    { "source": "/herramientas", "destination": "/#experiencias", "permanent": true }
   ],
   "headers": [
+    {
+      "source": "/.well-known/openpgpkey/policy",
+      "headers": [
+        { "key": "Content-Type", "value": "application/octet-stream" }
+      ]
+    },
+    {
+      "source": "/.well-known/openpgpkey/hu/(.+)",
+      "headers": [
+        { "key": "Content-Type", "value": "application/octet-stream" },
+        { "key": "Cache-Control", "value": "public, max-age=3600" }
+      ]
+    },
     {
       "source": "/(.*)",
       "headers": [
