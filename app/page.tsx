@@ -210,22 +210,6 @@ export default function Home() {
               </ul>
             </div>
           ))}
-
-          <div className="space-y-3">
-            <h3 className="title">Pruebas de trabajo</h3>
-            <ul className="space-y-2">
-              <li>
-                <a
-                  href="https://github.com/alexendros"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline underline-offset-4 decoration-primary/60 hover:decoration-primary text-sm"
-                >
-                  GitHub · alexendros →
-                </a>
-              </li>
-            </ul>
-          </div>
         </div>
       </section>
 
