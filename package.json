@@ -1,9 +1,9 @@
 {
-  "name": "alexendros-me",
-  "version": "0.1.0",
+  "name": "website-alexendrosme",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
-  "description": "Landing estatica de marca personal — alexendros.me",
+  "description": "Sitio web personal de Alexendros — espacio libre de dinero para ideas, ensayos y crítica tecnológica. Next.js 16, Tailwind v4, TypeScript strict, export estático.",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
@@ -16,7 +16,9 @@
     "deadcode:deps": "depcheck",
     "deadcode:exports": "ts-prune",
     "test:e2e": "playwright test",
-    "test:e2e:ui": "playwright test --ui"
+    "test:e2e:ui": "playwright test --ui",
+    "prepare": "husky || true",
+    "release": "standard-version"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",
@@ -57,7 +59,25 @@
     "node": ">=24"
   },
   "packageManager": "pnpm@10.33.0",
-  "license": "All Rights Reserved",
+  "license": "MIT",
+  "author": "Alexendros <contacto@alexendros.me>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Alexendros/website-alexendrosme.git"
+  },
+  "homepage": "https://alexendros.me",
+  "bugs": {
+    "url": "https://github.com/Alexendros/website-alexendrosme/issues"
+  },
+  "keywords": [
+    "personal-website",
+    "nextjs",
+    "tailwindcss",
+    "typescript",
+    "design-system",
+    "static-site",
+    "alexendros"
+  ],
   "pnpm": {
     "overrides": {
       "postcss@<8.5.10": ">=8.5.10",
