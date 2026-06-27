@@ -18,7 +18,7 @@ revisiones rápidas.
 
 Usamos las siguientes herramientas:
 
-- Node.js LTS y `pnpm` 9 como gestor de paquetes (cuando aplique).
+- Node.js >=24 y `npm` como gestor de paquetes.
 - Conventional Commits para los mensajes (`feat:`, `fix:`, `chore:`,
   `docs:`, `refactor:`, `test:`, `build:`, `ci:`).
 - Firmas de commit obligatorias (SSH o GPG).
@@ -28,8 +28,8 @@ Pasos típicos:
 ```bash
 git clone git@github.com:Alexendros/website-alexendrosme.git
 cd website-alexendrosme
-pnpm install
-pnpm test
+npm install
+npm run test
 ```
 
 ## Flujo de ramas
