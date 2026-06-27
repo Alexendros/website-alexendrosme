@@ -4,7 +4,7 @@
 
 ### 1. Pre-deploy Checklist
 
-- [ ] Todos los tests pasan (`pnpm lint && pnpm typecheck && pnpm test`)
+- [ ] Todos los tests pasan (`npm run lint && npm run typecheck && npm run test`)
 - [ ] Baseline de a11y no tiene regresiones
 - [ ] Baseline de performance no degrada >10%
 - [ ] PR revisado y aprobado
@@ -17,8 +17,8 @@ git checkout main
 git pull origin main
 
 # Build y test
-pnpm build
-pnpm test
+npm run build
+npm run test
 
 # Deploy via Vercel CLI
 vercel --prod
