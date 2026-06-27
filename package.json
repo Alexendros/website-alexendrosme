@@ -28,7 +28,6 @@
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-markdown": "^10.1.0",
-    "rehype-raw": "^7.0.0",
     "remark-gfm": "^4.0.1",
     "simple-icons": "^16.24.0",
     "tailwind-merge": "^3.6.0",
@@ -58,12 +57,11 @@
     "node": ">=24"
   },
   "packageManager": "pnpm@10.33.0",
-  "license": "CC-BY-NC-SA-4.0",
+  "license": "All Rights Reserved",
   "pnpm": {
     "overrides": {
       "postcss@<8.5.10": ">=8.5.10",
-      "js-yaml": ">=4.2.0",
-      "gray-matter>js-yaml": "^3.14.1"
+      "js-yaml": ">=4.2.0"
     },
     "allowBuilds": [
       "bun"
