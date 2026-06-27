@@ -10,15 +10,9 @@ Antes de abrir un issue revisa estas vías:
 
 ## 2. Issues
 
-Para preguntas y conversaciones de uso utiliza la sección
+Para preguntas, problemas reproducibles o propuestas concretas utiliza la sección
 [Issues del repositorio](https://github.com/Alexendros/website-alexendrosme/issues)
 (plantillas en `.github/ISSUE_TEMPLATE/`).
-
-## 3. Issues
-
-Abre un issue cuando tengas un problema reproducible o una propuesta
-concreta. Sigue las plantillas del repositorio
-(`.github/ISSUE_TEMPLATE/`).
 
 ## 4. Vulnerabilidades
 
