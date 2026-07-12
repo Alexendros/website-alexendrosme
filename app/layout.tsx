@@ -7,6 +7,8 @@ import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { Atmosphere } from "@/components/atmosphere";
 import { JsonLd } from "@/components/json-ld";
+import { ThemeProvider } from "@/components/theme-provider";
+import { AntiMonetizationBanner } from "@/components/anti-monetization-banner";
 import { siteConfig } from "@/lib/site";
 
 const ParticleBg = dynamic(() => import("@/components/particle-bg").then((m) => m.ParticleBg));
@@ -71,29 +73,54 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   themeColor: "#17130f",
-  colorScheme: "dark",
+  colorScheme: "dark light",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="es"
-      data-mode="dark"
       data-accent="gold"
-      className={`dark ${geistSans.variable} ${geistMono.variable} ${interDisplay.variable}`}
+      className={`${geistSans.variable} ${geistMono.variable} ${interDisplay.variable}`}
     >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var theme = localStorage.getItem('theme');
+                  var root = document.documentElement;
+                  if (theme === 'light' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+                    root.classList.add('light');
+                    root.classList.remove('dark');
+                    root.setAttribute('data-theme', 'light');
+                  } else {
+                    root.classList.add('dark');
+                    root.classList.remove('light');
+                    root.setAttribute('data-theme', 'dark');
+                  }
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
+      </head>
       <body className="body-layout">
         <a href="#main" className="skip-link">
           Saltar al contenido
         </a>
-        <JsonLd />
-        <Atmosphere />
-        <ParticleBg />
-        <Nav />
-        <main id="main" className="main-content">
-          {children}
-        </main>
-        <Footer />
+        <ThemeProvider>
+          <JsonLd />
+          <Atmosphere />
+          <ParticleBg />
+          <AntiMonetizationBanner />
+          <Nav />
+          <main id="main" className="main-content">
+            {children}
+          </main>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );

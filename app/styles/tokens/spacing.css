@@ -33,6 +33,4 @@
   --ax-tap-target: 2.75rem; /* 44px — WCAG 2.1 AA */
   --ax-measure: 65ch;
   --ax-safe-inset: max(1rem, env(safe-area-inset-left));
-
-  color-scheme: dark;
 }

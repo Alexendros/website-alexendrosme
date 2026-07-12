@@ -3,8 +3,10 @@
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
+import { ExternalLink } from "lucide-react";
 import { siteConfig } from "@/lib/site";
 import { useScrollSpy } from "@/lib/hooks/useScrollSpy";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 const MobileMenu = dynamic(() => import("@/components/mobile-menu").then((m) => m.MobileMenu), {
   ssr: false,
@@ -70,6 +72,20 @@ export function Nav() {
             );
           })}
         </ul>
+
+        {/* Productos link - solo desktop */}
+        <a
+          href={siteConfig.links.dev}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Hub de productos — alexendros.dev"
+          className="desktop-only site-nav__link site-nav__link--external"
+        >
+          Productos
+          <ExternalLink className="icn-sm" aria-hidden="true" />
+        </a>
+
+        <ThemeToggle />
 
         <MobileMenu activeHash={activeHash} />
       </nav>

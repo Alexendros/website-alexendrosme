@@ -7,17 +7,40 @@ y este proyecto se adhiere a [SemVer 2.0.0](https://semver.org/lang/es/).
 
 ## [Sin publicar]
 
-### Eliminado
+### Añadido
 
-- **Monetización del `.me`** (reconversión a espacio libre de dinero): componente `ReferralsFab` (`components/referrals-fab.tsx`), sección "Aliados con programa de referidos" en `app/page.tsx`, disclosure de afiliados en el footer, array `siteConfig.referrals` y estilos `.referral-item*`. Enlaces de afiliado (Proton, Hostinger, referral de Claude) retirados.
-- Tabla comparativa de venta "Alexendros vs Dev genérico" en `app/page.tsx`.
+- **Modo claro/oscuro** (Tarea 7): soporte completo `prefers-color-scheme` + toggle manual (System/Light/Dark) con persistencia localStorage. Tokens OKLCH light mode calculados perceptualemente (hue 85 superficies, hue 315 texto, contraste ≥4.5:1 WCAG AA). ThemeProvider + ThemeToggle (Radix Popover, iconos Monitor/Sun/Moon). Script anti-FOUC inline en `<head>`.
+- **Banner anti-monetización** (Tarea 5): aviso superior fijo "Este espacio es libre de dinero. Sin anuncios, sin afiliados, sin tracking. Lo comercial vive en alexendros.dev". Descartable (localStorage), respeta `prefers-reduced-motion`, animación slide-down/up, glass effect con `--ax-glass-*` tokens.
+- **Enlace a alexendros.dev** (Tarea 8): nav desktop "Productos" + footer "Hub de productos → alexendros.dev" con icono ExternalLink, `target="_blank" rel="noopener noreferrer"`.
+- **Tags firmados + GitHub Releases** (Tarea 6): workflow `release.yml` con `workflow_dispatch`, GPG signing en runner self-hosted, `softprops/action-gh-release@v2`, artifacts `out/**/*`.
+
+### Corregido
+
+- **CHANGELOG.md** (Tarea 1): URLs repo actualizadas `Alexendros/website-alexendrosme` → `Iniciativas-Alexendros/website-alexendrosme` (líneas 98-101).
+- **CI unificado v4** (Tarea 2): `actions/checkout@v4`, `setup-node@v4` con `node-version-file: .nvmrc`, `upload-artifact@v4`, `concurrency` + `cancel-in-progress`, `workflow_dispatch` con selector runner (ubuntu-latest/self-hosted), job `runner-health` (conectividad, recursos, broker), job `smoke` (schedule `*/30 * * * *`), jobs dinámicos según dispatch input.
+- **package.json engines.node** (Tarea 3): `>=24` → `>=22` (alineado con `.nvmrc` = 22).
+- **Error pages 404/500** (Tarea 4): verificación confirmada — `app/not-found.tsx` y `app/error.tsx` ya existen y son válidos.
 
 ### Cambiado
 
-- `components/footer.tsx`: "Todos los derechos reservados" sustituido por sello anticomercial (CE trencada) + lema "¿De qué sirve el dinero a quien no sabe usarlo? Ya lo tengo yo.".
-- `app/page.tsx`: reclamos de venta ("cobro en mi SaaS", "disponibilidad para consultoría") reescritos sin vocabulario comercial; SaaS/Stripe se mantienen como materia técnica.
-- `lib/site.ts` y `lib/structured-data.ts`: `title`/`description`/`knowsAbout` reorientados a identidad personal (soberanía digital, filosofía política); lo comercial apunta a `alexendros.pro`.
-- Tests E2E actualizados: retirados los asertos del FAB "Mis aliados" y de los enlaces de afiliado.
+- `app/styles/tokens/colors.css`: añadidos tokens light mode vía `@media (prefers-color-scheme: light)` y `[data-theme="light"]` overrides.
+- `app/styles/tokens/index.css`: capa semántica shadcn reactiva a tema (media query + data-theme).
+- `app/styles/tokens/spacing.css`: removido `color-scheme: dark` hardcoded.
+- `app/layout.tsx`: envuelto en `<ThemeProvider>`, script anti-FOUC, `viewport.colorScheme: "dark light"`, clase `dark` removida de `<html>`.
+- `components/nav.tsx`: integrado `<ThemeToggle />`, añadido enlace "Productos" (desktop-only).
+- `components/footer.tsx`: añadido enlace "Hub de productos → alexendros.dev".
+- `app/styles/components.css`: estilos `.anti-monetization-banner`, `.desktop-only`, utilidades glass.
+
+### Añadido
+
+- `components/theme-provider.tsx`: proveedor SSR-safe de tema.
+- `components/theme-toggle.tsx`: selector 3 estados (Sistema/Claro/Oscuro).
+- `components/anti-monetization-banner.tsx`: banner descartable anti-monetización.
+- `tests/visual-regression.spec.ts`: 36 capturas (Home + aviso-legal × 2 temas × 3 viewports × baseline/compare).
+- `tests/anti-monetization-banner.spec.ts`: 7 tests E2E (visibilidad, dismiss, persistencia, reduced-motion, link attrs, z-index, glass).
+- `.github/workflows/release.yml`: release manual con tags GPG firmados.
+- `docs/superpowers/plans/2026-07-12-alexendrosme-improvements-plan.md`: plan tareas 1-4.
+- `docs/superpowers/plans/2026-07-12-alexendrosme-improvements-5-8-architectural-plan.md`: plan arquitectural tareas 5-8.
 
 ## [0.3.0] — 2026-05-09 · SPA landing v2
 
@@ -95,7 +118,7 @@ y este proyecto se adhiere a [SemVer 2.0.0](https://semver.org/lang/es/).
 
 - Versión inicial del repositorio con canon de documentación aplicado.
 
-[Sin publicar]: https://github.com/Alexendros/website-alexendrosme/compare/v0.3.0...HEAD
-[0.3.0]: https://github.com/Alexendros/website-alexendrosme/compare/v0.2.0...v0.3.0
-[0.2.0]: https://github.com/Alexendros/website-alexendrosme/compare/v0.1.0...v0.2.0
-[0.1.0]: https://github.com/Alexendros/website-alexendrosme/releases/tag/v0.1.0
+[Sin publicar]: https://github.com/Iniciativas-Alexendros/website-alexendrosme/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/Iniciativas-Alexendros/website-alexendrosme/compare/v0.2.0...v0.3.0
+[0.2.0]: https://github.com/Iniciativas-Alexendros/website-alexendrosme/compare/v0.1.0...v0.2.0
+[0.1.0]: https://github.com/Iniciativas-Alexendros/website-alexendrosme/releases/tag/v0.1.0

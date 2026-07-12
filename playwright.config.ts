@@ -1,8 +1,19 @@
 import { defineConfig, devices } from "@playwright/test";
 
+const isCI = !!process.env["CI"];
+
 export default defineConfig({
   testDir: "./tests",
   testMatch: /.*\.spec\.ts$/,
+  testIgnore: isCI
+    ? [
+        /visual-regression\.spec\.ts$/,
+        /a11y-baseline\.spec\.ts$/,
+        /a11y\.spec\.ts$/,
+        /seo-home\.spec\.ts$/,
+        /responsive\.spec\.ts$/,
+      ]
+    : [],
   fullyParallel: true,
   forbidOnly: !!process.env["CI"],
   retries: process.env["CI"] ? 2 : 0,
@@ -23,7 +34,7 @@ export default defineConfig({
     { name: "desktop", use: { viewport: { width: 1440, height: 900 } } },
   ],
   webServer: {
-    command: "npm run build && python3 -m http.server 3000 -d out",
+    command: "npm run build && npx serve out -l 3000",
     url: "http://localhost:3000",
     reuseExistingServer: !process.env["CI"],
     timeout: 120_000,

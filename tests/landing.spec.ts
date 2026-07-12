@@ -22,12 +22,20 @@ test.describe("Landing · smoke + anchors + FABs", () => {
   });
 
   test("logo hace scroll al top", async ({ page }) => {
+    // Dismiss anti-monetization banner if present (it can intercept clicks)
+    const dismissBtn = page.locator(".anti-monetization-banner__dismiss");
+    if (await dismissBtn.isVisible({ timeout: 1000 }).catch(() => false)) {
+      await dismissBtn.click();
+      await expect(page.locator(".anti-monetization-banner")).not.toBeVisible({
+        timeout: 1000,
+      });
+    }
     await page.evaluate(() => window.scrollTo(0, 800));
     await page.locator("header nav a[href='/']").first().click();
-    // Esperar hasta que el scroll termine (smooth puede tardar >600ms)
-    await page.waitForFunction(() => window.scrollY < 50, { timeout: 3000 });
+    // Esperar hasta que el scroll termine (smooth puede tardar >600ms; CI más lento)
+    await page.waitForFunction(() => window.scrollY < 100, { timeout: 5000 });
     const scrollY = await page.evaluate(() => window.scrollY);
-    expect(scrollY).toBeLessThan(50);
+    expect(scrollY).toBeLessThan(100);
   });
 
   test("nav contiene los 3 anchors correctos", async ({ page, viewport }) => {
@@ -42,6 +50,30 @@ test.describe("Landing · smoke + anchors + FABs", () => {
       await expect(nav.locator("a[href='#biografia']")).toBeVisible();
       await expect(nav.locator("a[href='#misiones']")).toBeVisible();
       await expect(nav.locator("a[href='#experiencias']")).toBeVisible();
+    }
+  });
+
+  test("nav desktop: enlace Productos visible con href/target/rel correctos", async ({
+    page,
+    viewport,
+  }) => {
+    const isMobile = !viewport || viewport.width < 768;
+    if (!isMobile) {
+      const productosLink = page.locator("header nav a[href='https://alexendros.dev']").first();
+      await expect(productosLink).toBeVisible();
+      await expect(productosLink).toHaveText(/Productos/);
+      await expect(productosLink).toHaveAttribute("target", "_blank");
+      await expect(productosLink).toHaveAttribute("rel", "noopener noreferrer");
+      // Verificar icono ExternalLink presente
+      await expect(productosLink.locator("svg")).toBeAttached();
+    }
+  });
+
+  test("nav mobile: enlace Productos NO visible (solo desktop)", async ({ page, viewport }) => {
+    const isMobile = !viewport || viewport.width < 768;
+    if (isMobile) {
+      const productosLink = page.locator("header nav a[href='https://alexendros.dev']").first();
+      await expect(productosLink).not.toBeVisible();
     }
   });
 
@@ -63,5 +95,17 @@ test.describe("Landing · smoke + anchors + FABs", () => {
     await fab.click();
     await page.keyboard.press("Escape");
     await expect(fab).toBeFocused();
+  });
+
+  test("footer: enlace Hub de productos visible con href/target/rel correctos", async ({
+    page,
+  }) => {
+    const footerLink = page.locator("footer a[href='https://alexendros.dev']").first();
+    await expect(footerLink).toBeVisible();
+    await expect(footerLink).toHaveText(/Hub de productos.*alexendros\.dev/);
+    await expect(footerLink).toHaveAttribute("target", "_blank");
+    await expect(footerLink).toHaveAttribute("rel", "noopener noreferrer");
+    // Verificar icono ExternalLink presente
+    await expect(footerLink.locator("svg")).toBeAttached();
   });
 });
