@@ -13,7 +13,6 @@
     "format:check": "prettier --check \"**/*.{ts,tsx,js,mjs,json,md,css}\"",
     "test": "vitest run",
     "test:watch": "vitest",
-    "prebuild": "tsx scripts/generate-feeds.ts",
     "deadcode:deps": "depcheck",
     "deadcode:exports": "ts-prune",
     "test:e2e": "playwright test",

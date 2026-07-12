@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { siteConfig } from "@/lib/site";
+import { ExternalLink } from "lucide-react";
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -21,6 +22,16 @@ export function Footer() {
           </nav>
 
           <div className="flex-row">
+            <a
+              href={siteConfig.links.dev}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Hub de productos — alexendros.dev"
+              className="footer-link"
+            >
+              Hub de productos → alexendros.dev
+              <ExternalLink className="icn-sm" aria-hidden="true" />
+            </a>
             <a
               href={siteConfig.links.github}
               target="_blank"

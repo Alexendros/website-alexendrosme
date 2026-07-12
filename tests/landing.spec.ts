@@ -45,6 +45,27 @@ test.describe("Landing · smoke + anchors + FABs", () => {
     }
   });
 
+  test("nav desktop: enlace Productos visible con href/target/rel correctos", async ({ page, viewport }) => {
+    const isMobile = !viewport || viewport.width < 768;
+    if (!isMobile) {
+      const productosLink = page.locator("header nav a[href='https://alexendros.dev']").first();
+      await expect(productosLink).toBeVisible();
+      await expect(productosLink).toHaveText(/Productos/);
+      await expect(productosLink).toHaveAttribute("target", "_blank");
+      await expect(productosLink).toHaveAttribute("rel", "noopener noreferrer");
+      // Verificar icono ExternalLink presente
+      await expect(productosLink.locator("svg")).toBeAttached();
+    }
+  });
+
+  test("nav mobile: enlace Productos NO visible (solo desktop)", async ({ page, viewport }) => {
+    const isMobile = !viewport || viewport.width < 768;
+    if (isMobile) {
+      const productosLink = page.locator("header nav a[href='https://alexendros.dev']").first();
+      await expect(productosLink).not.toBeVisible();
+    }
+  });
+
   test("secciones id existen en el DOM", async ({ page }) => {
     await expect(page.locator("#biografia")).toBeAttached();
     await expect(page.locator("#misiones")).toBeAttached();
@@ -63,5 +84,15 @@ test.describe("Landing · smoke + anchors + FABs", () => {
     await fab.click();
     await page.keyboard.press("Escape");
     await expect(fab).toBeFocused();
+  });
+
+  test("footer: enlace Hub de productos visible con href/target/rel correctos", async ({ page }) => {
+    const footerLink = page.locator("footer a[href='https://alexendros.dev']").first();
+    await expect(footerLink).toBeVisible();
+    await expect(footerLink).toHaveText(/Hub de productos.*alexendros\.dev/);
+    await expect(footerLink).toHaveAttribute("target", "_blank");
+    await expect(footerLink).toHaveAttribute("rel", "noopener noreferrer");
+    // Verificar icono ExternalLink presente
+    await expect(footerLink.locator("svg")).toBeAttached();
   });
 });

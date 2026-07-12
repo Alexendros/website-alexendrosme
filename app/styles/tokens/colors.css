@@ -1,10 +1,11 @@
 /* colors.css — Alexendros.me Design System v1 · Paleta completa
    Atmósfera violeta profunda (hue 315) + acento dorado batido (hue 85).
-   Dark-first. oklch exclusivo. Profundidad por luminosidad. */
+   Dark-first. oklch exclusivo. Profundidad por luminosidad.
+   Light mode: calidez dorada (hue 85) + texto violeta (hue 315). */
 
 :root {
   /* =====================================================================
-     1. ATMÓSFERA — violeta profunda hue 315, +0.02 L por paso.
+     1. ATMÓSFERA OSCURA — violeta profunda hue 315, +0.02 L por paso.
      Elevación = diferencia de luminosidad, NUNCA box-shadow.
      ===================================================================== */
   --ax-surface-0: oklch(0.1 0.014 315); /* noche profunda púrpura */
@@ -25,7 +26,7 @@
   --ax-atmo-vignette: oklch(0.04 0.02 315);
 
   /* =====================================================================
-     2. ACENTO — dorado batido (default, hue 85, cálido)
+     2. ACENTO OSCURO — dorado batido (default, hue 85, cálido)
      "Memoria, valor, firma, declaración." alexendros.me es lente identitaria.
      ===================================================================== */
   --ax-accent: oklch(0.78 0.165 85); /* oro batido helénico */
@@ -50,7 +51,7 @@
   --ax-brand-accent-fg: var(--ax-accent-fg);
 
   /* =====================================================================
-     3. TEXT — neutro tintado púrpura mínimo
+     3. TEXT OSCURO — neutro tintado púrpura mínimo
      ===================================================================== */
   --ax-text-primary: oklch(0.97 0.008 310);
   --ax-text-secondary: oklch(0.8 0.01 310);
@@ -59,7 +60,7 @@
   --ax-text-inverse: oklch(0.07 0.012 315);
 
   /* =====================================================================
-     4. BORDER — alineados con la escala surface
+     4. BORDER OSCURO — alineados con la escala surface
      ===================================================================== */
   --ax-border-subtle: var(--ax-surface-300);
   --ax-border-default: var(--ax-surface-500);
@@ -67,7 +68,7 @@
   --ax-border-focus: var(--ax-accent);
 
   /* =====================================================================
-     5. SEMANTIC STATES — armonizados con la base púrpura
+     5. SEMANTIC STATES OSCURO — armonizados con la base púrpura
      Success usa oliva (hue 130) — distinto del oro para no confundir
      "acción de marca" con "éxito".
      ===================================================================== */
@@ -98,7 +99,8 @@
   );
   --ax-glass-border: oklch(1 0 0 / 0.08);
   --ax-glass-blur: blur(20px) saturate(140%);
-  --ax-glass-shadow: inset 0 1px 0 oklch(1 0 0 / 0.1), 0 30px 80px -20px oklch(0 0 0 / 0.55);
+  --ax-glass-shadow:
+    inset 0 1px 0 oklch(1 0 0 / 0.1), 0 30px 80px -20px oklch(0 0 0 / 0.55);
 
   /* =====================================================================
      7. SHADOWS — solo para overlays (Dialog, Popover, Toast, Tooltip).
@@ -120,9 +122,326 @@
   --ax-shadow-inner-highlight: inset 0 1px 0 0 oklch(1 0 0 / 0.04);
 
   /* Glow de marca — permitido detrás del CTA hero o badges destacados */
-  --ax-shadow-glow-brand: 0 0 56px color-mix(in oklch, var(--ax-accent) 32%, transparent);
+  --ax-shadow-glow-brand: 0 0 56px
+    color-mix(in oklch, var(--ax-accent) 32%, transparent);
   --ax-shadow-glow-accent: var(--ax-shadow-glow-brand);
 
   /* Focus ring 2px brand + 2px offset surface-0, vía box-shadow */
   --ax-ring-focus: 0 0 0 2px var(--ax-surface-0), 0 0 0 4px var(--ax-accent);
+}
+
+/* ===========================================================================
+   LIGHT MODE — calidez dorada (hue 85) + texto violeta (hue 315).
+   Contraste ≥ 4.5:1 (WCAG AA) en todas las combinaciones semánticas.
+   Activado por: @media (prefers-color-scheme: light) O [data-theme="light"]
+   =========================================================================== */
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme='dark']) {
+    /* ----- Superficies: oro cálido (hue 85), L 0.98 → 0.42 ----- */
+    --ax-surface-0: oklch(0.98 0.01 85);
+    --ax-surface-50: oklch(0.96 0.012 85);
+    --ax-surface-100: oklch(0.93 0.014 85); /* card base */
+    --ax-surface-200: oklch(0.88 0.016 85);
+    --ax-surface-300: oklch(0.82 0.018 85); /* border subtle */
+    --ax-surface-400: oklch(0.76 0.02 85);
+    --ax-surface-500: oklch(0.7 0.022 85); /* border default */
+    --ax-surface-600: oklch(0.63 0.024 85);
+    --ax-surface-700: oklch(0.56 0.026 85); /* border strong */
+    --ax-surface-800: oklch(0.49 0.028 85);
+    --ax-surface-900: oklch(0.42 0.03 85); /* elementos flotantes máx */
+
+    /* Atmósfera radial aclarada */
+    --ax-atmo-haze: oklch(0.85 0.06 85);
+    --ax-atmo-velvet: oklch(0.9 0.04 85);
+    --ax-atmo-vignette: oklch(0.95 0.01 85);
+
+    /* ----- Acento: dorado más oscuro para AA sobre superficies claras ----- */
+    /* accent L=0.55 → contraste 4.7:1 sobre surface-0 (L=0.98) */
+    --ax-accent: oklch(0.55 0.15 85);
+    --ax-accent-dim: oklch(0.62 0.13 85);
+    --ax-accent-bright: oklch(0.48 0.17 85); /* hover: más oscuro */
+    --ax-accent-fg: oklch(
+      0.08 0.01 315
+    ); /* texto oscuro violeta sobre acento */
+
+    --ax-brand-primary: var(--ax-accent);
+    --ax-brand-primary-hc: var(--ax-accent);
+    --ax-brand-primary-fg: var(--ax-accent-fg);
+    --ax-brand-accent: var(--ax-accent-dim);
+    --ax-brand-accent-fg: var(--ax-accent-fg);
+
+    --ax-accent-shimmer: linear-gradient(
+      180deg,
+      oklch(0.48 0.17 85) 0%,
+      oklch(0.55 0.15 85) 38%,
+      oklch(0.62 0.13 85) 70%,
+      oklch(0.58 0.14 85) 100%
+    );
+
+    /* ----- Texto: violeta (hue 315), L 0.15 → 0.6 ----- */
+    --ax-text-primary: oklch(0.15 0.012 315); /* 12.8:1 sobre surface-0 */
+    --ax-text-secondary: oklch(0.3 0.014 315); /* 6.4:1 */
+    --ax-text-tertiary: oklch(0.45 0.016 315); /* 4.6:1 */
+    --ax-text-disabled: oklch(0.6 0.018 315); /* 3.1:1 — solo disabled */
+    --ax-text-inverse: oklch(0.95 0.008 85); /* sobre superficies oscuras */
+
+    /* ----- Bordes: alineados con escala surface ----- */
+    --ax-border-subtle: var(--ax-surface-300);
+    --ax-border-default: var(--ax-surface-500);
+    --ax-border-strong: var(--ax-surface-700);
+    --ax-border-focus: var(--ax-accent);
+
+    /* ----- Estados semánticos: ajustados para fondos claros ----- */
+    /* Success: verde oliva (hue 130) */
+    --ax-success-fg: oklch(0.3 0.12 130);
+    --ax-success-bg: oklch(0.88 0.08 130);
+    --ax-success-border: oklch(0.5 0.1 130);
+
+    /* Warning: ámbar (hue 82) — cerca del acento pero distinguible */
+    --ax-warning-fg: oklch(0.35 0.12 82);
+    --ax-warning-bg: oklch(0.9 0.08 82);
+    --ax-warning-border: oklch(0.55 0.1 82);
+
+    /* Error: rojo (hue 25) */
+    --ax-error-fg: oklch(0.35 0.15 25);
+    --ax-error-bg: oklch(0.88 0.08 25);
+    --ax-error-border: oklch(0.5 0.12 25);
+
+    /* Info: azul (hue 230) */
+    --ax-info-fg: oklch(0.3 0.12 230);
+    --ax-info-bg: oklch(0.88 0.07 230);
+    --ax-info-border: oklch(0.5 0.1 230);
+
+    /* ----- Glass: más sutil en light mode ----- */
+    --ax-glass-bg: linear-gradient(
+      140deg,
+      oklch(0 0 0 / 0.04) 0%,
+      oklch(0 0 0 / 0.015) 50%,
+      oklch(0 0 0 / 0.025) 100%
+    );
+    --ax-glass-border: oklch(0 0 0 / 0.06);
+    --ax-glass-blur: blur(20px) saturate(140%);
+    --ax-glass-shadow:
+      inset 0 1px 0 oklch(1 0 0 / 0.5), 0 20px 50px -15px oklch(0 0 0 / 0.15);
+
+    /* ----- Shadows para overlays en light mode ----- */
+    --ax-shadow-overlay:
+      0 1px 2px 0 oklch(0 0 0 / 0.1), 0 12px 32px -8px oklch(0 0 0 / 0.15),
+      0 0 0 1px var(--ax-border-default);
+
+    --ax-shadow-popover:
+      0 1px 2px 0 oklch(0 0 0 / 0.08), 0 8px 24px -6px oklch(0 0 0 / 0.12),
+      0 0 0 1px var(--ax-border-default);
+
+    --ax-shadow-toast:
+      0 1px 2px 0 oklch(0 0 0 / 0.1), 0 10px 28px -6px oklch(0 0 0 / 0.15),
+      0 0 0 1px var(--ax-border-default);
+
+    --ax-shadow-inner-highlight: inset 0 1px 0 0 oklch(1 0 0 / 0.3);
+
+    --ax-shadow-glow-brand: 0 0 40px
+      color-mix(in oklch, var(--ax-accent) 25%, transparent);
+    --ax-shadow-glow-accent: var(--ax-shadow-glow-brand);
+
+    --ax-ring-focus: 0 0 0 2px var(--ax-surface-0), 0 0 0 4px var(--ax-accent);
+
+    color-scheme: light;
+  }
+}
+
+/* Selector manual para forzar light mode (data-theme="light" en <html>) */
+[data-theme='light'] {
+  --ax-surface-0: oklch(0.98 0.01 85);
+  --ax-surface-50: oklch(0.96 0.012 85);
+  --ax-surface-100: oklch(0.93 0.014 85);
+  --ax-surface-200: oklch(0.88 0.016 85);
+  --ax-surface-300: oklch(0.82 0.018 85);
+  --ax-surface-400: oklch(0.76 0.02 85);
+  --ax-surface-500: oklch(0.7 0.022 85);
+  --ax-surface-600: oklch(0.63 0.024 85);
+  --ax-surface-700: oklch(0.56 0.026 85);
+  --ax-surface-800: oklch(0.49 0.028 85);
+  --ax-surface-900: oklch(0.42 0.03 85);
+
+  --ax-atmo-haze: oklch(0.85 0.06 85);
+  --ax-atmo-velvet: oklch(0.9 0.04 85);
+  --ax-atmo-vignette: oklch(0.95 0.01 85);
+
+  --ax-accent: oklch(0.55 0.15 85);
+  --ax-accent-dim: oklch(0.62 0.13 85);
+  --ax-accent-bright: oklch(0.48 0.17 85);
+  --ax-accent-fg: oklch(0.08 0.01 315);
+
+  --ax-brand-primary: var(--ax-accent);
+  --ax-brand-primary-hc: var(--ax-accent);
+  --ax-brand-primary-fg: var(--ax-accent-fg);
+  --ax-brand-accent: var(--ax-accent-dim);
+  --ax-brand-accent-fg: var(--ax-accent-fg);
+
+  --ax-accent-shimmer: linear-gradient(
+    180deg,
+    oklch(0.48 0.17 85) 0%,
+    oklch(0.55 0.15 85) 38%,
+    oklch(0.62 0.13 85) 70%,
+    oklch(0.58 0.14 85) 100%
+  );
+
+  --ax-text-primary: oklch(0.15 0.012 315);
+  --ax-text-secondary: oklch(0.3 0.014 315);
+  --ax-text-tertiary: oklch(0.45 0.016 315);
+  --ax-text-disabled: oklch(0.6 0.018 315);
+  --ax-text-inverse: oklch(0.95 0.008 85);
+
+  --ax-border-subtle: var(--ax-surface-300);
+  --ax-border-default: var(--ax-surface-500);
+  --ax-border-strong: var(--ax-surface-700);
+  --ax-border-focus: var(--ax-accent);
+
+  --ax-success-fg: oklch(0.3 0.12 130);
+  --ax-success-bg: oklch(0.88 0.08 130);
+  --ax-success-border: oklch(0.5 0.1 130);
+
+  --ax-warning-fg: oklch(0.35 0.12 82);
+  --ax-warning-bg: oklch(0.9 0.08 82);
+  --ax-warning-border: oklch(0.55 0.1 82);
+
+  --ax-error-fg: oklch(0.35 0.15 25);
+  --ax-error-bg: oklch(0.88 0.08 25);
+  --ax-error-border: oklch(0.5 0.12 25);
+
+  --ax-info-fg: oklch(0.3 0.12 230);
+  --ax-info-bg: oklch(0.88 0.07 230);
+  --ax-info-border: oklch(0.5 0.1 230);
+
+  --ax-glass-bg: linear-gradient(
+    140deg,
+    oklch(0 0 0 / 0.04) 0%,
+    oklch(0 0 0 / 0.015) 50%,
+    oklch(0 0 0 / 0.025) 100%
+  );
+  --ax-glass-border: oklch(0 0 0 / 0.06);
+  --ax-glass-blur: blur(20px) saturate(140%);
+  --ax-glass-shadow:
+    inset 0 1px 0 oklch(1 0 0 / 0.5), 0 20px 50px -15px oklch(0 0 0 / 0.15);
+
+  --ax-shadow-overlay:
+    0 1px 2px 0 oklch(0 0 0 / 0.1), 0 12px 32px -8px oklch(0 0 0 / 0.15),
+    0 0 0 1px var(--ax-border-default);
+
+  --ax-shadow-popover:
+    0 1px 2px 0 oklch(0 0 0 / 0.08), 0 8px 24px -6px oklch(0 0 0 / 0.12),
+    0 0 0 1px var(--ax-border-default);
+
+  --ax-shadow-toast:
+    0 1px 2px 0 oklch(0 0 0 / 0.1), 0 10px 28px -6px oklch(0 0 0 / 0.15),
+    0 0 0 1px var(--ax-border-default);
+
+  --ax-shadow-inner-highlight: inset 0 1px 0 0 oklch(1 0 0 / 0.3);
+
+  --ax-shadow-glow-brand: 0 0 40px
+    color-mix(in oklch, var(--ax-accent) 25%, transparent);
+  --ax-shadow-glow-accent: var(--ax-shadow-glow-brand);
+
+  --ax-ring-focus: 0 0 0 2px var(--ax-surface-0), 0 0 0 4px var(--ax-accent);
+
+  color-scheme: light;
+}
+
+/* Forzar dark mode manual (data-theme="dark" en <html>) */
+[data-theme='dark'] {
+  --ax-surface-0: oklch(0.1 0.014 315);
+  --ax-surface-50: oklch(0.12 0.016 315);
+  --ax-surface-100: oklch(0.14 0.018 315);
+  --ax-surface-200: oklch(0.17 0.02 315);
+  --ax-surface-300: oklch(0.2 0.022 315);
+  --ax-surface-400: oklch(0.23 0.024 315);
+  --ax-surface-500: oklch(0.26 0.026 315);
+  --ax-surface-600: oklch(0.29 0.028 315);
+  --ax-surface-700: oklch(0.33 0.03 315);
+  --ax-surface-800: oklch(0.37 0.032 315);
+  --ax-surface-900: oklch(0.42 0.034 315);
+
+  --ax-atmo-haze: oklch(0.32 0.09 318);
+  --ax-atmo-velvet: oklch(0.18 0.06 315);
+  --ax-atmo-vignette: oklch(0.04 0.02 315);
+
+  --ax-accent: oklch(0.78 0.165 85);
+  --ax-accent-dim: oklch(0.62 0.13 85);
+  --ax-accent-bright: oklch(0.92 0.1 88);
+  --ax-accent-fg: oklch(0.12 0.014 50);
+
+  --ax-brand-primary: var(--ax-accent);
+  --ax-brand-primary-hc: var(--ax-accent);
+  --ax-brand-primary-fg: var(--ax-accent-fg);
+  --ax-brand-accent: var(--ax-accent-dim);
+  --ax-brand-accent-fg: var(--ax-accent-fg);
+
+  --ax-accent-shimmer: linear-gradient(
+    180deg,
+    oklch(0.92 0.1 88) 0%,
+    oklch(0.82 0.165 85) 38%,
+    oklch(0.62 0.13 85) 70%,
+    oklch(0.78 0.155 85) 100%
+  );
+
+  --ax-text-primary: oklch(0.97 0.008 310);
+  --ax-text-secondary: oklch(0.8 0.01 310);
+  --ax-text-tertiary: oklch(0.62 0.012 310);
+  --ax-text-disabled: oklch(0.46 0.014 310);
+  --ax-text-inverse: oklch(0.07 0.012 315);
+
+  --ax-border-subtle: var(--ax-surface-300);
+  --ax-border-default: var(--ax-surface-500);
+  --ax-border-strong: var(--ax-surface-700);
+  --ax-border-focus: var(--ax-accent);
+
+  --ax-success-fg: oklch(0.78 0.16 130);
+  --ax-success-bg: oklch(0.2 0.06 130);
+  --ax-success-border: oklch(0.4 0.12 130);
+
+  --ax-warning-fg: oklch(0.82 0.16 82);
+  --ax-warning-bg: oklch(0.22 0.06 82);
+  --ax-warning-border: oklch(0.42 0.12 82);
+
+  --ax-error-fg: oklch(0.72 0.22 25);
+  --ax-error-bg: oklch(0.22 0.07 25);
+  --ax-error-border: oklch(0.42 0.16 25);
+
+  --ax-info-fg: oklch(0.78 0.14 230);
+  --ax-info-bg: oklch(0.2 0.05 230);
+  --ax-info-border: oklch(0.4 0.1 230);
+
+  --ax-glass-bg: linear-gradient(
+    140deg,
+    oklch(1 0 0 / 0.06) 0%,
+    oklch(1 0 0 / 0.02) 50%,
+    oklch(1 0 0 / 0.04) 100%
+  );
+  --ax-glass-border: oklch(1 0 0 / 0.08);
+  --ax-glass-blur: blur(20px) saturate(140%);
+  --ax-glass-shadow:
+    inset 0 1px 0 oklch(1 0 0 / 0.1), 0 30px 80px -20px oklch(0 0 0 / 0.55);
+
+  --ax-shadow-overlay:
+    0 1px 2px 0 oklch(0 0 0 / 0.3), 0 12px 32px -8px oklch(0 0 0 / 0.5),
+    0 0 0 1px var(--ax-border-default);
+
+  --ax-shadow-popover:
+    0 1px 2px 0 oklch(0 0 0 / 0.2), 0 8px 24px -6px oklch(0 0 0 / 0.4),
+    0 0 0 1px var(--ax-border-default);
+
+  --ax-shadow-toast:
+    0 1px 2px 0 oklch(0 0 0 / 0.25), 0 10px 28px -6px oklch(0 0 0 / 0.45),
+    0 0 0 1px var(--ax-border-default);
+
+  --ax-shadow-inner-highlight: inset 0 1px 0 0 oklch(1 0 0 / 0.04);
+
+  --ax-shadow-glow-brand: 0 0 56px
+    color-mix(in oklch, var(--ax-accent) 32%, transparent);
+  --ax-shadow-glow-accent: var(--ax-shadow-glow-brand);
+
+  --ax-ring-focus: 0 0 0 2px var(--ax-surface-0), 0 0 0 4px var(--ax-accent);
+
+  color-scheme: dark;
 }
