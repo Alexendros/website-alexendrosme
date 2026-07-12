@@ -13,6 +13,7 @@
     "format:check": "prettier --check \"**/*.{ts,tsx,js,mjs,json,md,css}\"",
     "test": "vitest run",
     "test:watch": "vitest",
+    "prebuild": "tsx scripts/generate-feeds.ts",
     "deadcode:deps": "depcheck",
     "deadcode:exports": "ts-prune",
     "test:e2e": "playwright test",
@@ -49,13 +50,15 @@
     "eslint": "^10.5.0",
     "eslint-config-prettier": "^10.1.8",
     "prettier": "^3.9.4",
+    "serve": "^14.2.6",
     "ts-prune": "^0.10.3",
+    "tsx": "^4.22.4",
     "typescript": "^5.8.0",
     "typescript-eslint": "^8.62.1",
     "vitest": "^4.1.9"
   },
   "engines": {
-    "node": ">=24"
+    "node": ">=22"
   },
   "packageManager": "npm@10.9.0",
   "license": "MIT",
