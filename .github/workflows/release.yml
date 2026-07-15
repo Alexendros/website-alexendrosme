@@ -22,13 +22,13 @@ jobs:
     timeout-minutes: 10
     steps:
       - name: Checkout (full history for tagging)
-        uses: actions/checkout@11bd71902ba8b365163695724855428a1ce7432f # v4.2.2
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
         with:
           fetch-depth: 0
           persist-credentials: false
 
       - name: Setup Node
-        uses: actions/setup-node@cdca38d2a63216895d321591dd803efc21142512 # v4.3.0
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version-file: ".nvmrc"
           cache: npm
@@ -70,7 +70,7 @@ jobs:
         run: git push origin "$REF_NAME"
 
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@c95fe148d4cf72d4766b93700ddcb468a3539121 # v2.2.1
+        uses: softprops/action-gh-release@c12583777ecdfd3be55c69cf75464299dc01057e # v3
         with:
           tag_name: v${{ inputs.version }}
           generate_release_notes: true
