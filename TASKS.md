@@ -83,7 +83,7 @@ Lista viva de pendientes del repositorio standalone `alexendros-me`.
 
 ---
 
-_Última actualización: 2026-07-15 — Auditoría PROFUNDA completada, 6/6 defectos corregidos, 8/8 ítems de magnificación completados. Salud del proyecto: 9.8/10._
+_Última actualización: 2026-07-16 — Auditoría + magnificación completada (PR #96), Vercel Web Analytics integrado (#97), ramas huérfanas eliminadas, worktree limpiado. Salud del proyecto: 9.8/10._
 
 ---
 
@@ -128,3 +128,13 @@ _Última actualización: 2026-07-15 — Auditoría PROFUNDA completada, 6/6 defe
 - [x] JSON-LD: ✅ 44 bloques, 0 errores
 - [x] a11y E2E: ✅ 5 páginas, 0 violaciones WCAG 2.1 AA
 - [x] Visual regression: ✅ snapshots actualizados (12/12)
+
+## 10. Limpieza de ramas + worktree ✅ (2026-07-16)
+
+- [x] Ramas remotas eliminadas: `ci/add-missing-pipelines-and-docs`, `vercel/install-vercel-web-analytics-pfmtx0`
+- [x] Worktree freebuff eliminado
+- [x] Rama local `freebuff/new-thread-thmrme7j7qvya8` eliminada
+- [x] 2 stashes preservados (WIP UI refactoring + old ci/self-hosted-runners)
+- [x] Vercel Web Analytics cherry-pickeado a main (`@vercel/analytics` v1.4.1)
+- [x] CHANGELOG.md actualizado con todas las entradas de v0.5.0
+- [x] RELEASE.md: procedimiento de release documentado
