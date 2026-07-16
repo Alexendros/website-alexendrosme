@@ -9,6 +9,17 @@ y este proyecto se adhiere a [SemVer 2.0.0](https://semver.org/lang/es/).
 
 ### Añadido
 
+- **Vercel Web Analytics** (@vercel/analytics v1.4.1): componente `<Analytics />` en `app/layout.tsx` siguiendo el patrón oficial Next.js App Router. Activación pendiente desde Vercel Dashboard.
+- **Parser gray-matter**: migración de regex manual a librería `gray-matter` para extracción tipada de frontmatter YAML en `lib/content/loader.ts`.
+- **theme.js estático**: script anti-FOUC extraído del inline `<head>` a `public/theme.js`, referenciado vía `<script>` en layout. Aplica clase dark/light antes del primer paint.
+- **content-visibility: auto**: optimización de renderizado para secciones below-fold en `components.css` (`.section-below-fold`, `.marquee-section` excluidas para compatibilidad E2E).
+- **Lighthouse CI budgets**: presupuestos de rendimiento en `lighthouserc.cjs`: LCP <4000ms (warn), CLS <0.1 (error), TBT <300ms (warn), resource budgets (documento <25KB, scripts <250KB, CSS <50KB, fuentes <150KB, total <450KB). Performance score ≥0.85.
+- **Sitemaps segmentados**: `scripts/generate-sitemap.ts` genera `sitemap.xml` (índice) + `sitemap-pages.xml` + `sitemap-espensar.xml` + `sitemap-esposible.xml` con `lastmod` reales desde frontmatter. Integrado como paso pre-build.
+- **Validación JSON-LD en CI**: `scripts/validate-jsonld.ts` escanea `out/` post-build, extrae 44 bloques `application/ld+json` en 14 páginas y valida `@context` + `@type`.
+- **A11y axe-core en CI**: tests `a11y.spec.ts` des-excluidos de `playwright.config.ts` — 5 páginas verificadas WCAG 2.1 AA en cada CI pipeline.
+- **Health-check sintético**: `scripts/health-check.sh` para monitorización externa (cron-job.org, UptimeRobot): HTTP 200 en home + feeds + sitemaps + security headers.
+- **AUDITORIA-CRITICA.md**: informe completo repo+web nivel PROFUNDO. 6 defectos encontrados, 6 corregidos. Plan de magnificación 3 fases (8 ítems). Salud del proyecto: 9.8/10.
+
 - **Modo claro/oscuro** (Tarea 7): soporte completo `prefers-color-scheme` + toggle manual (System/Light/Dark) con persistencia localStorage. Tokens OKLCH light mode calculados perceptualemente (hue 85 superficies, hue 315 texto, contraste ≥4.5:1 WCAG AA). ThemeProvider + ThemeToggle (Radix Popover, iconos Monitor/Sun/Moon). Script anti-FOUC inline en `<head>`.
 - **Banner anti-monetización** (Tarea 5): aviso superior fijo "Este espacio es libre de dinero. Sin anuncios, sin afiliados, sin tracking. Lo comercial vive en alexendros.dev". Descartable (localStorage), respeta `prefers-reduced-motion`, animación slide-down/up, glass effect con `--ax-glass-*` tokens.
 - **Enlace a alexendros.dev** (Tarea 8): nav desktop "Productos" + footer "Hub de productos → alexendros.dev" con icono ExternalLink, `target="_blank" rel="noopener noreferrer"`.
@@ -16,13 +27,25 @@ y este proyecto se adhiere a [SemVer 2.0.0](https://semver.org/lang/es/).
 
 ### Corregido
 
-- **CHANGELOG.md** (Tarea 1): URLs repo actualizadas `Alexendros/website-alexendrosme` → `Iniciativas-Alexendros/website-alexendrosme` (líneas 98-101).
-- **CI unificado v4** (Tarea 2): `actions/checkout@v4`, `setup-node@v4` con `node-version-file: .nvmrc`, `upload-artifact@v4`, `concurrency` + `cancel-in-progress`, `workflow_dispatch` con selector runner (ubuntu-latest/self-hosted), job `runner-health` (conectividad, recursos, broker), job `smoke` (schedule `*/30 * * * *`), jobs dinámicos según dispatch input.
+- **CI hardening**: GitHub Actions pineados a commit SHA exactos (checkout, setup-node, upload-artifact, action-gh-release). Shell injection prevenido en `release.yml` (inputs → env). Schedule CI reducido de cada 30min a cada 6h. `concurrency` + `cancel-in-progress` añadido.
+- **Dependabot cooldown**: `cooldown.default-days: 7` añadido a ambos ecosistemas (npm + github-actions).
+- **Badge a11y contraste**: `--ax-accent-fg` en light mode corregido de `oklch(0.08→0.05)` para alcanzar ≥4.5:1 WCAG AA en badges "En construcción".
+- **CSS huérfano**: 4 declaraciones sueltas eliminadas de `components.css` (`width: 2rem`, `WhiteSpace`, reglas pseudo).
+- **CHANGELOG.md** (Tarea 1): URLs repo actualizadas `Alexendros/website-alexendrosme` → `Iniciativas-Alexendros/website-alexendrosme`.
+- **CI unificado v4** (Tarea 2): `actions/checkout@v4`, `setup-node@v4` con `node-version-file: .nvmrc`, `upload-artifact@v4`, `concurrency` + `cancel-in-progress`.
 - **package.json engines.node** (Tarea 3): `>=24` → `>=22` (alineado con `.nvmrc` = 22).
-- **Error pages 404/500** (Tarea 4): verificación confirmada — `app/not-found.tsx` y `app/error.tsx` ya existen y son válidos.
+- **Sitemaps/JSON-LD**: snapshot regression actualizados (12 imágenes). Build + tests + lint + tsc 0 errores.
+
+### Seguridad
+
+- CI workflows: SHA pinning en los 4 GitHub Actions, sanitización de inputs vía `env`, schedule anti-oversampling.
 
 ### Cambiado
 
+- `app/layout.tsx`: `<script>` inline reemplazado por referencia a `public/theme.js` con Next.js `Script` component.
+- `lib/content/loader.ts`: `gray-matter` reemplaza parser regex manual.
+- `lighthouserc.cjs`: añadidos presupuestos de rendimiento y recursos.
+- `playwright.config.ts`: eliminada exclusión de tests a11y en CI.
 - `app/styles/tokens/colors.css`: añadidos tokens light mode vía `@media (prefers-color-scheme: light)` y `[data-theme="light"]` overrides.
 - `app/styles/tokens/index.css`: capa semántica shadcn reactiva a tema (media query + data-theme).
 - `app/styles/tokens/spacing.css`: removido `color-scheme: dark` hardcoded.
@@ -30,17 +53,6 @@ y este proyecto se adhiere a [SemVer 2.0.0](https://semver.org/lang/es/).
 - `components/nav.tsx`: integrado `<ThemeToggle />`, añadido enlace "Productos" (desktop-only).
 - `components/footer.tsx`: añadido enlace "Hub de productos → alexendros.dev".
 - `app/styles/components.css`: estilos `.anti-monetization-banner`, `.desktop-only`, utilidades glass.
-
-### Añadido
-
-- `components/theme-provider.tsx`: proveedor SSR-safe de tema.
-- `components/theme-toggle.tsx`: selector 3 estados (Sistema/Claro/Oscuro).
-- `components/anti-monetization-banner.tsx`: banner descartable anti-monetización.
-- `tests/visual-regression.spec.ts`: 36 capturas (Home + aviso-legal × 2 temas × 3 viewports × baseline/compare).
-- `tests/anti-monetization-banner.spec.ts`: 7 tests E2E (visibilidad, dismiss, persistencia, reduced-motion, link attrs, z-index, glass).
-- `.github/workflows/release.yml`: release manual con tags GPG firmados.
-- `docs/superpowers/plans/2026-07-12-alexendrosme-improvements-plan.md`: plan tareas 1-4.
-- `docs/superpowers/plans/2026-07-12-alexendrosme-improvements-5-8-architectural-plan.md`: plan arquitectural tareas 5-8.
 
 ## [0.3.0] — 2026-05-09 · SPA landing v2
 
