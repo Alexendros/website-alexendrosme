@@ -2,7 +2,13 @@ import { test, expect } from "@playwright/test";
 
 test.describe("Landing · smoke + anchors + FABs", () => {
   test.beforeEach(async ({ page }) => {
+    // Pre-dismiss anti-monetization banner via localStorage so it never renders.
+    // Click-based dismissal races with the banner's CSS slide-down animation.
+    await page.addInitScript(() => {
+      localStorage.setItem("anti-monetization-dismissed", "true");
+    });
     await page.goto("/");
+    await page.waitForLoadState("networkidle");
   });
 
   test("carga sin errores JS y muestra el hero", async ({ page }) => {
@@ -22,14 +28,6 @@ test.describe("Landing · smoke + anchors + FABs", () => {
   });
 
   test("logo hace scroll al top", async ({ page }) => {
-    // Dismiss anti-monetization banner if present (it can intercept clicks)
-    const dismissBtn = page.locator(".anti-monetization-banner__dismiss");
-    if (await dismissBtn.isVisible({ timeout: 1000 }).catch(() => false)) {
-      await dismissBtn.click();
-      await expect(page.locator(".anti-monetization-banner")).not.toBeVisible({
-        timeout: 1000,
-      });
-    }
     await page.evaluate(() => window.scrollTo(0, 800));
     await page.locator("header nav a[href='/']").first().click();
     // Esperar hasta que el scroll termine (smooth puede tardar >600ms; CI más lento)
