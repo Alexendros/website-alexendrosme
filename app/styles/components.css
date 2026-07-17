@@ -1212,6 +1212,7 @@
 
 .anti-monetization-banner__link {
   flex-shrink: 0;
+  min-height: var(--ax-tap-target);
   font-size: var(--text-sm);
   font-weight: 600;
   color: var(--ax-brand-primary);
