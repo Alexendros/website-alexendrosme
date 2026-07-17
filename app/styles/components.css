@@ -8,8 +8,8 @@
     position: absolute;
     left: -9999px;
     top: auto;
-    width: 1px;
-    height: 1px;
+    width: 0;
+    height: 0;
     overflow: hidden;
   }
   .skip-link:focus,
@@ -74,6 +74,9 @@
 
   .site-nav__link {
     position: relative;
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--ax-tap-target);
     padding: 0.5rem 0.75rem;
     border-radius: var(--ax-radius-md);
     font-size: var(--text-sm);
@@ -739,6 +742,15 @@
     color: var(--foreground);
   }
 
+  /* ── Theme toggle (44px tap target) ──────────── */
+  .theme-toggle-trigger {
+    min-height: var(--ax-tap-target, 2.75rem);
+    min-width: var(--ax-tap-target, 2.75rem);
+  }
+  .theme-toggle-option {
+    min-height: var(--ax-tap-target, 2.75rem);
+  }
+
   /* ── Footer ──────────────────────────────────────── */
   .footer-link {
     display: inline-flex;
@@ -1034,6 +1046,7 @@
   /* ── Enlace de tarjeta misión ────────────────────── */
   .card-link {
     display: inline-block;
+    padding-block: 0.75rem;
     font-size: var(--text-sm);
     color: var(--primary);
   }
@@ -1232,8 +1245,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.25rem;
-  height: 2.25rem;
+  width: var(--ax-tap-target);
+  height: var(--ax-tap-target);
   border: none;
   background: transparent;
   color: var(--ax-text-tertiary);

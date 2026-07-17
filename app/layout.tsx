@@ -83,6 +83,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="es"
       data-accent="gold"
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} ${interDisplay.variable}`}
     >
       <head>

@@ -27,6 +27,9 @@ test.describe("Responsividad · no-overflow + tap targets ≥44px", () => {
         .filter((el) => {
           const rect = el.getBoundingClientRect();
           if (rect.width === 0 && rect.height === 0) return false; // hidden
+          // WCAG 2.5.8 exime inline text links (display: inline, no flex/block)
+          const display = getComputedStyle(el).display;
+          if (display === "inline") return false;
           return rect.width < 44 || rect.height < 44;
         })
         .map((el) => ({
@@ -40,8 +43,7 @@ test.describe("Responsividad · no-overflow + tap targets ≥44px", () => {
     if (smallTargets.length > 0) {
       console.warn("Tap targets <44px:", JSON.stringify(smallTargets, null, 2));
     }
-    // Warn-only en lugar de fail para elementos decorativos pequeños (iconos con label externo)
-    // La regla WCAG 2.5.5 (AAA) recomienda 44px; WCAG 2.5.8 (AA en 2.2) admite excepciones inline
+    // Warn-only — WCAG 2.5.5 (AAA) recomienda 44px; WCAG 2.5.8 (AA) admite excepciones inline
   });
 
   test("FAB visible en mobile", async ({ page, viewport }) => {

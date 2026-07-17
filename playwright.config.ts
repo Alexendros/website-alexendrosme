@@ -33,7 +33,9 @@ export default defineConfig({
     { name: "desktop", use: { viewport: { width: 1440, height: 900 } } },
   ],
   webServer: {
-    command: "npm run build && npx serve out -l 3000",
+    command: process.env["CI"]
+      ? "npm run build && npx serve out -l 3000"
+      : "npm run dev -- -p 3000",
     url: "http://localhost:3000",
     reuseExistingServer: !process.env["CI"],
     timeout: 120_000,

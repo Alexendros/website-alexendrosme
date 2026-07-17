@@ -36,7 +36,7 @@ export function ThemeToggle() {
         <button
           type="button"
           className={cn(
-            "inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium",
+            "inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium theme-toggle-trigger",
             "transition-colors duration-fast ease-out-expo",
             "bg-muted hover:bg-muted/80",
             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
@@ -70,7 +70,7 @@ export function ThemeToggle() {
             type="button"
             onClick={() => setTheme(t.value)}
             className={cn(
-              "flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm",
+              "flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm theme-toggle-option",
               "transition-colors duration-fast ease-out-expo",
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
               "hover:bg-muted",
