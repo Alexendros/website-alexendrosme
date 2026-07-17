@@ -4,10 +4,11 @@ const perfThresholds = {
   lcp: 2500,
   fid: 100,
   cls: 0.1,
-  ttfb: 1500,
+  ttfb: process.env["CI"] ? 1500 : 5000,
 };
 
 test("home page performance baseline", async ({ page }) => {
+  test.skip(!process.env["CI"], "Perf baseline solo en CI (static export); next dev TTFB no es representativo");
   const start = Date.now();
 
   await page.goto("/");
