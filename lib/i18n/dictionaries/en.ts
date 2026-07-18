@@ -124,7 +124,6 @@ const en: TranslationDict = {
     backEspensar: "← Back to Es pensar",
     backEsposible: "← Back to Es posible",
     tagsLabel: "Tags",
-    relacionadoTitle: "Related articles",
     minutesShort: "min read",
     tocTitle: "On this page",
   },
@@ -133,7 +132,6 @@ const en: TranslationDict = {
   now: {
     title: "/now",
     desc: "What I'm doing now. Inspired by Derek Sivers' idea (sive.rs/now).",
-    siversLink: "Derek Sivers' idea",
     lastUpdatedPrefix: "Updated:",
     sectionBuilding: "Building",
     buildingItems:
