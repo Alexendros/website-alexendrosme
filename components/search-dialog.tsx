@@ -16,12 +16,12 @@ interface SearchIndexItem {
   content: string;
 }
 
-function highlightMatches(text: string, query: string): React.ReactNode {
+export function highlightMatches(text: string, query: string): React.ReactNode {
   if (!query.trim()) return text;
-  const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`, "gi");
-  const parts = text.split(regex);
+  const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const parts = text.split(new RegExp(`(${escapedQuery})`, "gi"));
   return parts.map((part, i) =>
-    regex.test(part) ? (
+    i % 2 === 1 ? (
       <mark key={i} className="bg-primary/20 text-foreground rounded-sm px-0.5">
         {part}
       </mark>
@@ -61,14 +61,10 @@ export function SearchDialog({ open, onOpenChange }: SearchDialogProps) {
   useEffect(() => {
     if (!open) {
       setQuery("");
-      return;
     }
-    // Focus input after dialog opens
-    setTimeout(() => inputRef.current?.focus(), 100);
   }, [open]);
 
   useEffect(() => {
-    // Load search index
     fetch("/search-index.json")
       .then((res) => res.json())
       .then((data: SearchIndexItem[]) => {
@@ -76,12 +72,10 @@ export function SearchDialog({ open, onOpenChange }: SearchDialogProps) {
         setLoading(false);
       })
       .catch(() => {
-        // If search index not found, build from embedded data
         setLoading(false);
       });
   }, []);
 
-  // Keyboard shortcut: register global ⌘K / Ctrl+K
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === "k") {
@@ -154,7 +148,6 @@ export function SearchDialog({ open, onOpenChange }: SearchDialogProps) {
             inputRef.current?.focus();
           }}
         >
-          {/* Search input */}
           <div className="flex items-center gap-3 border-b border-border px-4 py-3">
             <Search className="size-5 shrink-0 text-muted-foreground" aria-hidden="true" />
             <input
@@ -181,7 +174,6 @@ export function SearchDialog({ open, onOpenChange }: SearchDialogProps) {
             )}
           </div>
 
-          {/* Results */}
           <div className="overflow-y-auto max-h-[60vh] p-2">
             {loading && (
               <p className="px-3 py-8 text-center text-sm text-muted-foreground">
