@@ -65,10 +65,18 @@ export function SwRegister() {
     <div role="status" aria-live="polite" className="sw-toast">
       <p className="sw-toast__text">{t("pwa.updateReady")}</p>
       <div className="sw-toast__actions">
-        <button type="button" onClick={applyUpdate} className="sw-toast__btn sw-toast__btn--primary">
+        <button
+          type="button"
+          onClick={applyUpdate}
+          className="sw-toast__btn sw-toast__btn--primary"
+        >
           {t("pwa.updateApply")}
         </button>
-        <button type="button" onClick={() => setDismissed(true)} className="sw-toast__btn sw-toast__btn--secondary">
+        <button
+          type="button"
+          onClick={() => setDismissed(true)}
+          className="sw-toast__btn sw-toast__btn--secondary"
+        >
           {t("pwa.updateDismiss")}
         </button>
       </div>

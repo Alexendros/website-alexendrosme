@@ -65,7 +65,7 @@ function LogoRow({ count = 1, startIndex = 0 }: { count?: number; startIndex?: n
               <>
                 <span
                   aria-hidden
-                  data-glow-color={label.toLowerCase().replace(/[\s.]+/g, '')}
+                  data-glow-color={label.toLowerCase().replace(/[\s.]+/g, "")}
                   className="marquee-logo-glow"
                 />
                 <svg
@@ -88,7 +88,7 @@ function LogoRow({ count = 1, startIndex = 0 }: { count?: number; startIndex?: n
                 target="_blank"
                 rel="noopener noreferrer"
                 className="marquee-item"
-                data-brand={label.toLowerCase().replace(/[\s.]+/g, '')}
+                data-brand={label.toLowerCase().replace(/[\s.]+/g, "")}
                 aria-label={`${icon.title} — ${href}`}
                 {...linkProps}
               >
