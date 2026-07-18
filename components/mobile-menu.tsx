@@ -89,6 +89,15 @@ export function MobileMenu({ activeHash }: { activeHash: string }) {
                   </a>
                 </li>
               ))}
+              <li>
+                <Link
+                  href="/now"
+                  onClick={() => setOpen(false)}
+                  className="sidebar-link"
+                >
+                  {t("nav.now")}
+                </Link>
+              </li>
             </ul>
           </div>
         </SheetContent>

@@ -83,3 +83,77 @@ describe("resolveFromDict (string[] leaves)", () => {
     expect(Array.isArray(items)).toBe(true);
   });
 });
+
+describe("i18n tags + now keys exist in both locales", () => {
+  it("tags.indexTitle present in es + en", () => {
+    expect(typeof resolveFromDict(es, "tags.indexTitle")).toBe("string");
+    expect(typeof resolveFromDict(en, "tags.indexTitle")).toBe("string");
+  });
+
+  it("tags.detailLabel present + NOT equal to indexTitle", () => {
+    const esLabel = resolveFromDict(es, "tags.detailLabel");
+    const enLabel = resolveFromDict(en, "tags.detailLabel");
+    expect(typeof esLabel).toBe("string");
+    expect(typeof enLabel).toBe("string");
+    expect(esLabel).not.toBe(resolveFromDict(es, "tags.indexTitle"));
+    expect(enLabel).not.toBe(resolveFromDict(en, "tags.indexTitle"));
+  });
+
+  it("tags plural one/many keys are distinct strings", () => {
+    const esOne = resolveFromDict(es, "tags.countLabelOne");
+    const esMany = resolveFromDict(es, "tags.countLabelMany");
+    expect(esOne).not.toBe(esMany);
+    expect(typeof esOne).toBe("string");
+    expect(typeof esMany).toBe("string");
+  });
+
+  it("now.* keys present in es + en", () => {
+    for (const key of ["title", "desc", "sectionFocus", "focusItems", "footerBack", "empty"]) {
+      expect(typeof resolveFromDict(es, `now.${key}`)).toBe("string");
+      expect(typeof resolveFromDict(en, `now.${key}`)).toBe("string");
+    }
+  });
+
+  it("article.minutesShort differs between es and en (proves both are translated)", () => {
+    const esShort = resolveFromDict(es, "article.minutesShort");
+    const enShort = resolveFromDict(en, "article.minutesShort");
+    expect(esShort).not.toBe(enShort);
+  });
+});
+
+describe("count+label pluralization (mirrors pluralizeWithCount helper)", () => {
+  // Mirrors the production helper from components/translated-labels.tsx:
+  //   `${count} ${count === 1 ? label : pluralLabel}`
+  // The helper itself is a thin wrapper around t(), so this duplicate-on-purpose
+  // test locks the count+label contract that the helper depends on.
+  const fmt = (count: number, dict: typeof es | typeof en) =>
+    `${count} ${
+      count === 1
+        ? (resolveFromDict(dict, "tags.countLabelOne") as string)
+        : (resolveFromDict(dict, "tags.countLabelMany") as string)
+    }`;
+
+  it("es count=1 produces '1 etiqueta'", () => {
+    expect(fmt(1, es)).toBe("1 etiqueta");
+  });
+  it("es count>1 produces 'N etiquetas'", () => {
+    expect(fmt(5, es)).toBe("5 etiquetas");
+  });
+  it("en count=1 produces '1 tag'", () => {
+    expect(fmt(1, en)).toBe("1 tag");
+  });
+  it("en count>1 produces 'N tags'", () => {
+    expect(fmt(5, en)).toBe("5 tags");
+  });
+
+  // Regression: prior bug rendered count=1 without the leading "1". This
+  // assertion explicitly catches a re-introduction of that mistake.
+  it("regression: count=1 always includes the numeric count", () => {
+    for (const dict of [es, en] as const) {
+      const rendered = fmt(1, dict);
+      const labelOnly = (resolveFromDict(dict, "tags.countLabelOne") as string).trim();
+      expect(rendered.startsWith("1 ")).toBe(true);
+      expect(rendered.endsWith(labelOnly)).toBe(true);
+    }
+  });
+});

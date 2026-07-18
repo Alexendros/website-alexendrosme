@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getAllTags, getArticlesByTag } from "@/lib/content/loader";
 import { BreadcrumbJsonLd } from "@/components/breadcrumb-json-ld";
 import { siteConfig } from "@/lib/site";
+import { TagsIndexHeader, TagsEmpty, BackHomeLabel } from "@/components/translated-labels";
 
 export const metadata: Metadata = {
   title: "Etiquetas",
@@ -21,37 +22,49 @@ export default async function TagsIndexPage() {
     tags.map(async (tag) => ({ tag, count: (await getArticlesByTag(tag)).length })),
   );
 
+  if (tags.length === 0) {
+    return (
+      <>
+        <BreadcrumbJsonLd
+          items={[{ name: "Etiquetas", href: `${siteConfig.url}/tags` }]}
+        />
+        <div className="site-shell article-shell">
+          <TagsIndexHeader count={0} />
+          <p className="empty-state">
+            <TagsEmpty />
+          </p>
+          <footer className="section-footer">
+            <Link href="/" className="back-link">
+              <BackHomeLabel />
+            </Link>
+          </footer>
+        </div>
+      </>
+    );
+  }
+
   return (
     <>
       <BreadcrumbJsonLd items={[{ name: "Etiquetas", href: `${siteConfig.url}/tags` }]} />
       <div className="site-shell article-shell">
-        <header className="collection-header">
-          <h1 className="headline">Etiquetas</h1>
-          <p className="prose-lead collection-desc">
-            {tags.length} {tags.length === 1 ? "etiqueta" : "etiquetas"} en total.
-          </p>
-        </header>
+        <TagsIndexHeader count={tags.length} />
 
-        {tags.length === 0 ? (
-          <p className="empty-state">No hay etiquetas aún.</p>
-        ) : (
-          <div className="cluster">
-            {tagsWithCount.map(({ tag, count }) => (
-              <Link
-                key={tag}
-                href={`/tags/${encodeURIComponent(tag)}`}
-                className="tag-pill hover:bg-muted transition-colors no-underline"
-              >
-                #{tag}
-                <span className="ml-1 text-xs text-muted-foreground">({count})</span>
-              </Link>
-            ))}
-          </div>
-        )}
+        <div className="cluster">
+          {tagsWithCount.map(({ tag, count }) => (
+            <Link
+              key={tag}
+              href={`/tags/${encodeURIComponent(tag)}`}
+              className="tag-pill hover:bg-muted transition-colors no-underline"
+            >
+              #{tag}
+              <span className="ml-1 text-xs text-muted-foreground">({count})</span>
+            </Link>
+          ))}
+        </div>
 
         <footer className="section-footer">
           <Link href="/" className="back-link">
-            ← Volver al inicio
+            <BackHomeLabel />
           </Link>
         </footer>
       </div>

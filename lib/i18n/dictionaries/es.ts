@@ -167,8 +167,13 @@ const es: TranslationDict = {
   // ── Tags page ───────────────────────────────────────────
   tags: {
     indexTitle: "Etiquetas",
+    detailLabel: "Etiqueta",
     indexEmpty: "No hay etiquetas aún.",
     backToTags: "← Todas las etiquetas",
+    countLabelOne: "etiqueta",
+    countLabelMany: "etiquetas",
+    detailCountOne: "artículo con esta etiqueta",
+    detailCountMany: "artículos con esta etiqueta",
   },
 
   // ── PWA ─────────────────────────────────────────────────

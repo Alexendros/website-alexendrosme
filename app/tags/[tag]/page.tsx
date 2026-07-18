@@ -4,6 +4,12 @@ import { notFound } from "next/navigation";
 import { getAllTags, getArticlesByTag } from "@/lib/content/loader";
 import { BreadcrumbJsonLd } from "@/components/breadcrumb-json-ld";
 import { siteConfig } from "@/lib/site";
+import {
+  TagPageHeader,
+  ReadingTime,
+  LocalDate,
+  BackToTagsLabel,
+} from "@/components/translated-labels";
 
 interface Props {
   params: Promise<{ tag: string }>;
@@ -43,30 +49,20 @@ export default async function TagPage({ params }: Props) {
         ]}
       />
       <div className="site-shell article-shell">
-        <header className="collection-header">
-          <p className="ds-label collection-label">Etiqueta</p>
-          <h1 className="headline">#{decoded}</h1>
-          <p className="prose-lead collection-desc">
-            {articles.length} {articles.length === 1 ? "artículo" : "artículos"} con esta etiqueta.
-          </p>
-        </header>
+        <TagPageHeader tag={decoded} count={articles.length} />
 
         <div className="stack-lg">
           {articles.map((article) => (
             <article key={`${article.type}-${article.slug}`}>
               <Link href={`/${article.type}/${article.slug}`} className="article-item">
-                <time dateTime={article.frontmatter.date} className="ds-caption">
-                  {new Date(article.frontmatter.date).toLocaleDateString("es-ES", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
-                </time>
+                <LocalDate date={article.frontmatter.date} />
                 <h2 className="article-item__title">{article.frontmatter.title}</h2>
                 {article.frontmatter.description && (
                   <p className="article-item__desc">{article.frontmatter.description}</p>
                 )}
-                <span className="ds-caption">{article.readingTime} min de lectura</span>
+                <span className="ds-caption">
+                  <ReadingTime minutes={article.readingTime} />
+                </span>
               </Link>
             </article>
           ))}
@@ -74,7 +70,7 @@ export default async function TagPage({ params }: Props) {
 
         <footer className="section-footer">
           <Link href="/tags" className="back-link">
-            ← Todas las etiquetas
+            <BackToTagsLabel />
           </Link>
         </footer>
       </div>

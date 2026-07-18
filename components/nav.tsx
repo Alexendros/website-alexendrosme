@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { ExternalLink, Search } from "lucide-react";
@@ -28,8 +29,10 @@ export function Nav() {
   const headerRef = useRef<HTMLElement | null>(null);
   const { t } = useI18n();
   const [searchOpen, setSearchOpen] = useState(false);
+  const pathname = usePathname();
 
   const activeHash = useScrollSpy(siteConfig.nav.map((item) => item.href.replace("#", "")));
+  const onNowPage = pathname === "/now";
 
   useEffect(() => {
     const header = headerRef.current;
@@ -83,6 +86,17 @@ export function Nav() {
               </li>
             );
           })}
+          <li>
+            <Link
+              href="/now"
+              className={
+                onNowPage ? "site-nav__link site-nav__link--active" : "site-nav__link"
+              }
+              aria-current={onNowPage ? "page" : undefined}
+            >
+              {t("nav.now")}
+            </Link>
+          </li>
         </ul>
 
         {/* Search trigger */}
