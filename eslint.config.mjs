@@ -7,6 +7,13 @@ export default tseslint.config(
   js.configs.recommended,
   ...tseslint.configs.strict,
   {
+    languageOptions: {
+      parserOptions: {
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+  },
+  {
     plugins: { "@next/next": nextPlugin },
     rules: {
       ...nextPlugin.configs.recommended.rules,
@@ -70,6 +77,7 @@ export default tseslint.config(
       ".turbo/",
       "next-env.d.ts",
       ".git-worktrees/**",
+      ".freebuff/**",
       ".claude/**",
       "public/theme.js",
     ],
