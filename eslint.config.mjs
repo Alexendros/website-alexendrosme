@@ -8,6 +8,9 @@ export default tseslint.config(
   ...tseslint.configs.strict,
   {
     languageOptions: {
+      globals: {
+        URL: "readonly",
+      },
       parserOptions: {
         tsconfigRootDir: new URL(".", import.meta.url).pathname.replace(/\/$/, ""),
       },
