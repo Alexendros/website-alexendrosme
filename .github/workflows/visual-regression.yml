@@ -33,17 +33,8 @@ jobs:
       - run: npm run build
       - name: Install Playwright browsers
         run: npx playwright install chromium --with-deps
-      - name: Serve out/ + run visual specs
-        run: |
-          set +e
-          npx serve out -s -l 3000 &
-          SERVE_PID=$!
-          trap "kill $SERVE_PID 2>/dev/null || true" EXIT
-          npx wait-on --timeout 60000 http://localhost:3000 || { echo "::error::serve out no arrancó en 60s"; kill $SERVE_PID 2>/dev/null || true; exit 1; }
-          npx playwright test --grep @visual
-          TEST_EXIT=$?
-          kill $SERVE_PID 2>/dev/null || true
-          exit $TEST_EXIT
+      - name: Run visual specs
+        run: npx playwright test --grep @visual
         env:
           CI: true
       - name: Upload visual failure artifacts

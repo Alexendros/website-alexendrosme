@@ -179,6 +179,7 @@ jobs:
           node-version-file: ".nvmrc"
           cache: npm
       - run: npm ci
+      - run: npm run build
       - name: Install Playwright browsers
         run: npx playwright install chromium --with-deps
       - name: Run performance audit (Web Vitals)
