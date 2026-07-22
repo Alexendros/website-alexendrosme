@@ -227,8 +227,10 @@ jobs:
     timeout-minutes: 5
     permissions:
       pull-requests: write
+      contents: write
     steps:
-      - uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
+      - id: check-all
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
         env:
           BUILD_RESULT: ${{ needs.build.result }}
           E2E_RESULT: ${{ needs.e2e.result }}
@@ -253,6 +255,7 @@ jobs:
             ];
 
             const allPassed = checks.every(c => c.result === 'success');
+            core.setOutput('all-passed', allPassed ? 'true' : 'false');
 
             let body = `## CI Checklist\n\n`;
             body += `| Check | Status |\n`;
@@ -292,3 +295,11 @@ jobs:
                 body,
               });
             }
+
+      - name: Enable auto-merge
+        if: steps.check-all.outputs.all-passed == 'true'
+        run: |
+          gh pr merge --auto --merge "${{ github.event.pull_request.number }}" \
+            --subject "${{ github.event.pull_request.title }}"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
