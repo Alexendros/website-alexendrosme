@@ -12,8 +12,8 @@ on:
 # churn. Instead, auto-update snapshots in the CI environment so they always
 # match the runner's rendering.
 concurrency:
-  group: visual-${{ github.ref }}-${{ github.run_id }}
-  cancel-in-progress: false
+  group: visual-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   visual:
