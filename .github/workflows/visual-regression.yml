@@ -34,7 +34,11 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install chromium --with-deps
       - name: Run visual specs
-        run: npx playwright test --grep @visual
+        # Solo desktop project — cada test ya fija su propio viewport via
+        # page.setViewportSize(). Los proyectos mobile-sm/tablet tienen
+        # isMobile/deviceScaleFactor que causan snapshots inconsistentes
+        # entre entornos locales y CI.
+        run: npx playwright test --grep @visual --project desktop
         env:
           CI: true
       - name: Upload visual failure artifacts
